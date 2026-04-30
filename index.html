@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 지방선거 지지층 분석</title>
+<style>
+:root {
+  --dem:#2563eb; --dem-lt:#dbeafe; --dem-dk:#1e40af;
+  --rep:#dc2626; --rep-lt:#fee2e2; --rep-dk:#991b1b;
+  --border:#e2e8f0; --bg:#f1f5f9; --card:#fff;
+  --text:#1e293b; --muted:#64748b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:var(--bg);color:var(--text);font-size:14px}
+
+/* HEADER */
+.site-header{background:#0f172a;color:#fff;padding:14px 28px;display:flex;align-items:center;justify-content:space-between}
+.site-title{font-size:17px;font-weight:800;letter-spacing:-.3px}
+.site-sub{font-size:11px;color:#94a3b8;margin-top:3px}
+
+/* REGION TABS */
+.region-tabs{background:#1e293b;display:flex;padding:0 28px;overflow-x:auto;border-bottom:2px solid #334155}
+.rtab{padding:13px 20px;color:#94a3b8;cursor:pointer;font-size:14px;font-weight:600;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;user-select:none}
+.rtab:hover{color:#e2e8f0}
+.rtab.active{color:#fff;border-bottom-color:#3b82f6}
+.rtag{display:inline-block;font-size:10px;padding:1px 7px;border-radius:8px;margin-left:5px;font-weight:700}
+
+/* ANALYSIS TABS */
+.analysis-tabs{background:#fff;border-bottom:2px solid var(--border);display:flex;padding:0 28px;gap:4px}
+.atab{padding:12px 22px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:none;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s}
+.atab:hover{color:var(--text)}
+.atab.active{color:var(--dem);border-bottom-color:var(--dem)}
+.atab-badge{display:inline-block;font-size:10px;background:#f1f5f9;color:#64748b;padding:1px 6px;border-radius:8px;margin-left:4px;font-weight:400}
+
+/* CONTENT */
+.a-section{display:none}
+.a-section.active{display:block}
+.content{padding:24px 28px;max-width:1440px;margin:0 auto}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px}
+.card-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px}
+
+/* CANDIDATE WIN SECTION */
+.win-grid{display:grid;grid-template-columns:1fr 60px 1fr;gap:0;margin-bottom:24px;align-items:stretch}
+.win-card{border-radius:10px;padding:20px 24px;border:2px solid}
+.win-card.dem{border-color:var(--dem);background:#eff6ff}
+.win-card.rep{border-color:var(--rep);background:#fff5f5}
+.win-party{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.win-cand-name{font-size:22px;font-weight:800;margin-bottom:2px}
+.win-role{font-size:12px;color:var(--muted);margin-bottom:14px}
+.win-pct{font-size:48px;font-weight:800;line-height:1}
+.win-label{font-size:11px;color:var(--muted);margin-top:3px;margin-bottom:10px}
+.win-prob-track{height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;margin-top:8px}
+.win-prob-fill{height:100%;border-radius:4px;transition:width .4s}
+.win-vs{display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--muted);background:#f8fafc;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.win-lead-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:800;margin-top:6px}
+
+/* BREAKDOWN */
+.bk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.bk-row{margin-bottom:9px}
+.bk-label-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px}
+.bk-track{height:20px;background:#f1f5f9;border-radius:4px;overflow:hidden;display:flex}
+.bk-dem{background:var(--dem);height:100%;display:flex;align-items:center;justify-content:flex-end;padding:0 5px;color:#fff;font-size:10px;font-weight:800;min-width:0;white-space:nowrap}
+.bk-rep{background:var(--rep);height:100%;display:flex;align-items:center;padding:0 5px;color:#fff;font-size:10px;font-weight:800;min-width:0;white-space:nowrap}
+.bk-etc{background:#cbd5e1;height:100%}
+
+/* COMBO FILTER */
+.filter-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+.ds-block{margin-bottom:16px;padding:12px 14px;background:#f8fafc;border:1px solid var(--border);border-radius:8px}
+.ds-block:last-child{margin-bottom:0}
+.ds-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.ds-name{font-size:11px;font-weight:800;color:var(--text);letter-spacing:.02em}
+.ds-badge{font-size:9px;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.02em}
+.ds-vars{font-size:10px;color:var(--muted);margin-left:auto}
+.filter-row{display:flex;flex-wrap:wrap;gap:10px}
+.filter-item{flex:1;min-width:110px;max-width:200px}
+.f-label{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;display:flex;align-items:center;gap:4px}
+.f-var-type{font-size:9px;background:#e2e8f0;color:#475569;padding:1px 5px;border-radius:3px;font-weight:700;text-transform:none;letter-spacing:0}
+.f-select{width:100%;padding:6px 8px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;outline:none;background:#fff;cursor:pointer}
+.f-select:focus{border-color:var(--dem)}
+
+.combo-result{background:#fff;border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:16px}
+.combo-pct-row{display:grid;grid-template-columns:1fr 120px 1fr;gap:8px;align-items:center;margin-bottom:18px}
+.combo-pct{font-size:52px;font-weight:800;line-height:1;text-align:center}
+.combo-mid{text-align:center}
+.combo-bar{height:26px;border-radius:6px;overflow:hidden;display:flex}
+.combo-bar-dem{background:var(--dem);display:flex;align-items:center;padding:0 10px;color:#fff;font-size:12px;font-weight:800;transition:width .4s}
+.combo-bar-rep{background:var(--rep);display:flex;align-items:center;padding:0 10px;color:#fff;font-size:12px;font-weight:800;justify-content:flex-end;transition:width .4s}
+
+/* PRESET COMBOS */
+.section-divider{font-size:13px;font-weight:800;color:var(--text);margin:20px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px}
+.src-badge{font-size:10px;background:#f1f5f9;color:var(--muted);padding:2px 8px;border-radius:6px;font-weight:600}
+.preset-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.preset-card{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .15s}
+.preset-card:hover{border-color:#94a3b8;box-shadow:0 4px 14px rgba(0,0,0,.09);transform:translateY(-2px)}
+.preset-card.active-preset{border-color:var(--dem);box-shadow:0 0 0 3px #dbeafe}
+.preset-head{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
+.preset-emoji{font-size:22px;flex-shrink:0;line-height:1.2}
+.preset-name{font-size:13px;font-weight:800;margin-bottom:2px;line-height:1.3}
+.preset-src{font-size:10px;color:var(--muted)}
+.preset-desc{font-size:11px;color:var(--muted);margin-bottom:9px;line-height:1.5}
+.preset-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.preset-tag{background:#f1f5f9;color:#475569;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600}
+.preset-bar{height:20px;border-radius:4px;overflow:hidden;display:flex;margin-bottom:5px}
+.preset-bar-dem{background:var(--dem);height:100%;display:flex;align-items:center;padding:0 6px;color:#fff;font-size:10px;font-weight:800;min-width:0}
+.preset-bar-rep{background:var(--rep);height:100%;display:flex;align-items:center;justify-content:flex-end;padding:0 6px;color:#fff;font-size:10px;font-weight:800;min-width:0}
+.preset-bar-etc{background:#cbd5e1;height:100%}
+.preset-pcts{display:flex;justify-content:space-between;font-size:11px;font-weight:700}
+
+.top-combos{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.tc-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px}
+.tc-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
+.tc-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+.tc-row:last-child{border-bottom:none}
+.tc-tag{font-size:10px;background:#f1f5f9;color:#64748b;padding:2px 6px;border-radius:4px;margin-right:6px;font-weight:600}
+
+/* PERSONA */
+.persona-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px}
+.p-card{background:#fff;border:2px solid var(--border);border-radius:12px;padding:16px 14px;cursor:pointer;transition:all .15s;text-align:center}
+.p-card:hover{border-color:#94a3b8;transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
+.p-card.selected{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1)}
+.p-icon{font-size:30px;margin-bottom:8px}
+.p-type{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.p-name{font-size:13px;font-weight:800;margin-bottom:10px;line-height:1.3}
+.p-minibar{height:7px;border-radius:4px;overflow:hidden;display:flex;margin-bottom:5px}
+.pb-dem{background:var(--dem);height:100%}
+.pb-rep{background:var(--rep);height:100%}
+.p-pcts{display:flex;justify-content:space-between;font-size:11px;font-weight:700}
+.p-pop{font-size:10px;color:var(--muted);margin-top:4px}
+.persona-detail{background:#fff;border:1px solid var(--border);border-radius:10px;padding:22px}
+.pd-layout{display:grid;grid-template-columns:280px 1fr;gap:24px}
+.pd-type-badge{display:inline-block;font-size:11px;font-weight:800;padding:3px 10px;border-radius:10px;margin-bottom:8px}
+.pd-name{font-size:22px;font-weight:800;margin-bottom:6px}
+.pd-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px}
+.pd-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px}
+.pd-tag{background:#f1f5f9;color:#475569;font-size:11px;padding:3px 9px;border-radius:10px;font-weight:600}
+.pd-support-box{background:#f8fafc;border-radius:8px;padding:14px}
+.pd-support-title{font-size:11px;font-weight:800;color:var(--muted);margin-bottom:10px}
+.pd-sbar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.pd-sbar-label{width:56px;font-size:11px;color:var(--muted);text-align:right;flex-shrink:0}
+.pd-sbar-track{flex:1;height:22px;background:#e2e8f0;border-radius:4px;overflow:hidden}
+.pd-sbar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding:0 8px;font-size:11px;font-weight:800;color:#fff}
+.pd-bk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.pd-bk-title{font-size:13px;font-weight:700;margin-bottom:14px;color:var(--text)}
+
+/* ALL-REGIONS COMPARISON */
+.all-win-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.all-win-card{border:1px solid var(--border);border-radius:10px;padding:14px;background:#fff}
+.all-win-region{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.all-cand-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.all-cand-box{border-radius:7px;padding:8px 6px;text-align:center;border:1.5px solid}
+.all-cand-name{font-size:11px;font-weight:800;margin-bottom:2px}
+.all-cand-pct{font-size:20px;font-weight:800;line-height:1}
+.all-lead-bar{height:5px;border-radius:3px;overflow:hidden;display:flex;margin-top:6px}
+
+.compare-bk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.compare-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px}
+.compare-val-group{margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.compare-val-group:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.compare-val-label{font-size:12px;font-weight:700;margin-bottom:6px;color:var(--text)}
+.compare-rgn-row{display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.compare-rgn-name{width:28px;font-size:10px;font-weight:800;color:var(--muted);flex-shrink:0}
+.compare-rgn-bar{flex:1;height:13px;background:#f1f5f9;border-radius:3px;overflow:hidden;display:flex}
+.compare-rgn-bar-dem{background:var(--dem);height:100%}
+.compare-rgn-bar-rep{background:var(--rep);height:100%}
+.compare-rgn-pct{font-size:10px;font-weight:700;width:76px;text-align:right;flex-shrink:0}
+
+.all-combo-result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+.all-combo-region-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px}
+.all-combo-region-label{font-size:11px;font-weight:800;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+
+.all-preset-bar-row{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.all-preset-rgn{width:28px;font-size:10px;font-weight:800;color:var(--muted);flex-shrink:0}
+.all-preset-track{flex:1;height:12px;border-radius:3px;overflow:hidden;display:flex;background:#f1f5f9}
+.all-preset-dem{background:var(--dem);height:100%}
+.all-preset-rep{background:var(--rep);height:100%}
+.all-preset-nums{font-size:10px;font-weight:700;width:70px;text-align:right;flex-shrink:0}
+
+.all-persona-table{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:0}
+.all-persona-type-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px}
+.all-persona-type-head{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.all-persona-rgn-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.all-persona-rgn-label{width:28px;font-size:10px;font-weight:800;color:var(--muted);flex-shrink:0}
+.all-persona-bar{flex:1;height:14px;border-radius:3px;overflow:hidden;display:flex}
+.all-persona-bar-dem{background:var(--dem);height:100%}
+.all-persona-bar-rep{background:var(--rep);height:100%}
+.all-persona-pct{font-size:10px;font-weight:700;width:68px;text-align:right;flex-shrink:0}
+
+/* FOOTER */
+.footer{background:#1e293b;color:#94a3b8;text-align:center;padding:20px;font-size:11px;margin-top:40px;line-height:1.8}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.bk-grid{grid-template-columns:repeat(2,1fr)}.persona-grid{grid-template-columns:repeat(3,1fr)}.preset-grid{grid-template-columns:repeat(2,1fr)}.all-win-row{grid-template-columns:repeat(2,1fr)}.compare-bk-grid{grid-template-columns:repeat(2,1fr)}.all-persona-table{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.bk-grid{grid-template-columns:1fr}.win-grid{grid-template-columns:1fr}.win-vs{display:none}.top-combos{grid-template-columns:1fr}.persona-grid{grid-template-columns:repeat(2,1fr)}.pd-layout{grid-template-columns:1fr}.content{padding:16px}.preset-grid{grid-template-columns:1fr}.filter-item{max-width:100%}.all-win-row{grid-template-columns:1fr}.compare-bk-grid{grid-template-columns:1fr}.all-combo-result-grid{grid-template-columns:1fr}.all-persona-table{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div>
+    <div class="site-title">🗳️ 2026 지방선거 — 지지층 분석 대시보드</div>
+    <div class="site-sub">4개 광역시도 · 사회조사·경제활동인구조사·주택금융·인권의식 변수 기반 · 페르소나 5유형</div>
+  </div>
+  <div style="font-size:11px;color:#94a3b8;text-align:right">페르소나 통계 모형<br>2026.06.01</div>
+</header>
+
+<nav class="region-tabs">
+  <div class="rtab" onclick="switchRegion(this,'all')">전체 비교 <span class="rtag" style="background:#475569;color:#fff">4개 지역</span></div>
+  <div class="rtab active" onclick="switchRegion(this,'seoul')">서울 <span class="rtag" style="background:#f59e0b;color:#fff">경합</span></div>
+  <div class="rtab" onclick="switchRegion(this,'gyeonggi')">경기 <span class="rtag" style="background:#2563eb;color:#fff">민주 우세</span></div>
+  <div class="rtab" onclick="switchRegion(this,'busan')">부산 <span class="rtag" style="background:#dc2626;color:#fff">국힘 우세</span></div>
+  <div class="rtab" onclick="switchRegion(this,'daegu')">대구 <span class="rtag" style="background:#991b1b;color:#fff">안전 국힘</span></div>
+</nav>
+
+<div class="analysis-tabs">
+  <button class="atab active" onclick="switchAnalysis(this,'basic')">기본 분석 <span class="atab-badge">1차원</span></button>
+  <button class="atab" onclick="switchAnalysis(this,'combo')">조합 분석 <span class="atab-badge">2차원</span></button>
+  <button class="atab" onclick="switchAnalysis(this,'persona')">페르소나 유형 <span class="atab-badge">스테레오타입</span></button>
+</div>
+
+<!-- ══════════════ 기본 분석 ══════════════ -->
+<div id="sec-basic" class="a-section active">
+  <div class="content">
+    <div class="win-grid" id="win-grid"></div>
+    <div id="bk-container">
+      <div class="bk-grid">
+        <div class="card"><div class="card-title">성별 지지율</div><div id="bk-gender"></div></div>
+        <div class="card"><div class="card-title">연령대별 지지율</div><div id="bk-age"></div></div>
+        <div class="card"><div class="card-title">가구소득별 지지율</div><div id="bk-income"></div></div>
+        <div class="card"><div class="card-title">주거형태별 지지율</div><div id="bk-housing"></div></div>
+        <div class="card"><div class="card-title">학력별 지지율</div><div id="bk-edu"></div></div>
+        <div class="card"><div class="card-title">직업·종사상지위별 지지율</div><div id="bk-job"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 조합 분석 ══════════════ -->
+<div id="sec-combo" class="a-section">
+  <div class="content">
+
+    <div class="filter-card">
+      <div style="font-size:14px;font-weight:700;margin-bottom:16px">변수 조합 선택
+        <span style="font-size:12px;color:var(--muted);font-weight:400">— 데이터셋별 변수를 조합해 해당 집단의 지지율을 추정합니다</span>
+      </div>
+
+      <!-- 사회조사(2024) -->
+      <div class="ds-block">
+        <div class="ds-header">
+          <div class="ds-name">📋 사회조사 (2024)</div>
+          <span class="ds-badge" style="background:#dbeafe;color:#1e40af">공통</span>
+          <span class="ds-badge" style="background:#fef3c7;color:#92400e">고유</span>
+          <span class="ds-vars">성별코드·만연령·교육정도코드·종사상지위코드·가구소득코드 + 스트레스·사회안전인식도·성취만족도·가족관계만족도</span>
+        </div>
+        <div class="filter-row">
+          <div class="filter-item">
+            <div class="f-label">성별 <span class="f-var-type" style="background:#dbeafe;color:#1e40af">공통</span></div>
+            <select class="f-select" id="f-gender" onchange="renderCombo()">
+              <option value="">전체</option><option value="남성">남성</option><option value="여성">여성</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <div class="f-label">연령대 <span class="f-var-type" style="background:#dbeafe;color:#1e40af">공통</span></div>
+            <select class="f-select" id="f-age" onchange="renderCombo()">
+              <option value="">전체</option><option value="20대">20대</option><option value="30대">30대</option>
+              <option value="40대">40대</option><option value="50대">50대</option><option value="60대+">60대 이상</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <div class="f-label">학력 <span class="f-var-type" style="background:#dbeafe;color:#1e40af">공통</span></div>
+            <select class="f-select" id="f-edu" onchange="renderCombo()">
+              <option value="">전체</option><option value="중졸이하">중졸 이하</option>
+              <option value="고졸">고졸</option><option value="대학교">대학교</option><option value="대학원이상">대학원 이상</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <div class="f-label">스트레스정도 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
+            <select class="f-select" id="f-stress" onchange="renderCombo()">
+              <option value="">전체</option><option value="낮음">낮음</option><option value="보통">보통</option><option value="높음">높음</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <div class="f-label">사회안전인식도 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
+            <select class="f-select" id="f-social-safety" onchange="renderCombo()">
+              <option value="">전체</option><option value="안전">안전</option><option value="보통">보통</option><option value="불안">불안</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <div class="f-label">성취만족도 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
+            <select class="f-select" id="f-achievement" onchange="renderCombo()">
+              <option value="">전체</option><option value="만족">만족</option><option value="보통">보통</option><option value="불만족">불만족</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 사회조사(2023) -->
+      <div class="ds-block">
+        <div class="ds-header">
+          <div class="ds-name">📋 사회조사 (2023)</div>
+          <span class="ds-badge" style="background:#dbeafe;color:#1e40af">공통</span>
+          <span class="ds-badge" style="background:#fef3c7;color:#92400e">고유</span>
+          <span class="ds-vars">성별코드·만연령·교육정도코드·가구소득코드 + 계층의식코드·소득만족도·생활여건변화</span>
+        </div>
+        <div class="filter-row">
+          <div class="filter-item">
+            <div class="f-label">가구소득 <span class="f-var-type" style="background:#dbeafe;color:#1e40af">공통</span></div>
+            <select class="f-select" id="f-income" onchange="renderCombo()">
+              <option value="">전체</option><option value="200만원미만">200만원 미만</option>
+              <option value="200~400만원">200~400만원</option><option value="400~600만원">400~600만원</option>
+              <option value="600만원이상">600만원 이상</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <div class="f-label">계층의식 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
+            <select class="f-select" id="f-class-id" onchange="renderCombo()">
+              <option value="">전체</option><option value="상층">상층</option><option value="중층">중층</option><option value="하층">하층</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <div class="f-label">소득만족도 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
+            <select class="f-select" id="f-income-sat" onchange="renderCombo()">
+              <option value="">전체</option><option value="만족">만족</option><option value="보통">보통</option><option value="불만족">불만족</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <div class="f-label">생활여건변화 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
+            <select class="f-select" id="f-life-cond" onchange="renderCombo()">
+              <option value="">전체</option><option value="좋아짐">좋아짐</option><option value="비슷">비슷</option><option value="나빠짐">나빠짐</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 주택금융및보금자리론실태조사(2024) -->
+      <div class="ds-block">
+        <div class="ds-header">
+          <div class="ds-name">🏠 주택금융및보금자리론실태조사 (2024)</div>
+          <span class="ds-badge" style="background:#dbeafe;color:#1e40af">공통</span>
+          <span class="ds-badge" style="background:#fef3c7;color:#92400e">고유</span>
+          <span class="ds-vars">가구소득코드·가구주연령 + 주택점유형태코드·보유주택수코드·향후주택구입의향</span>
+        </div>
+        <div class="filter-row">
+          <div class="filter-item">
+            <div class="f-label">주택점유형태 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
+            <select class="f-select" id="f-housing" onchange="renderCombo()">
+              <option value="">전체</option><option value="자가">자가</option><option value="전세">전세</option><option value="월세">월세</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <div class="f-label">보유주택수 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
+            <select class="f-select" id="f-homes-owned" onchange="renderCombo()">
+              <option value="">전체</option><option value="무주택">무주택</option><option value="1채">1채</option><option value="2채이상">2채 이상</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <div class="f-label">향후구입의향 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
+            <select class="f-select" id="f-buy-intent" onchange="renderCombo()">
+              <option value="">전체</option><option value="있음">있음</option><option value="없음">없음</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 경제활동인구조사(2024) -->
+      <div class="ds-block">
+        <div class="ds-header">
+          <div class="ds-name">💼 경제활동인구조사 (2024)</div>
+          <span class="ds-badge" style="background:#dbeafe;color:#1e40af">공통</span>
+          <span class="ds-badge" style="background:#fef3c7;color:#92400e">고유</span>
+          <span class="ds-vars">성별코드·만연령 + 종사상지위코드·종사자규모코드·경제활동상태코드·구직활동유무</span>
+        </div>
+        <div class="filter-row">
+          <div class="filter-item">
+            <div class="f-label">종사상지위 <span class="f-var-type" style="background:#dbeafe;color:#1e40af">공통</span></div>
+            <select class="f-select" id="f-job" onchange="renderCombo()">
+              <option value="">전체</option><option value="임금(정규)">임금근로자(정규)</option>
+              <option value="임금(비정규)">임금근로자(비정규)</option><option value="자영업">자영업</option>
+              <option value="학생">학생</option><option value="주부·은퇴">주부·은퇴</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <div class="f-label">종사자규모 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
+            <select class="f-select" id="f-firm-size" onchange="renderCombo()">
+              <option value="">전체</option><option value="1~9인">소규모(1~9인)</option>
+              <option value="10~299인">중규모(10~299인)</option><option value="300인이상">대규모(300인이상)</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <div class="f-label">경제활동상태 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
+            <select class="f-select" id="f-econ-status" onchange="renderCombo()">
+              <option value="">전체</option><option value="취업자">취업자</option>
+              <option value="실업자">실업자</option><option value="비경제활동">비경제활동</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 인권의식실태조사(2024) -->
+      <div class="ds-block">
+        <div class="ds-header">
+          <div class="ds-name">⚖️ 인권의식실태조사 (2024)</div>
+          <span class="ds-badge" style="background:#dbeafe;color:#1e40af">공통</span>
+          <span class="ds-badge" style="background:#fef3c7;color:#92400e">고유</span>
+          <span class="ds-vars">연령대·성별·학력·직장에서지위·삶만족도 + 인권존중정도·노동권·평등권·안전권</span>
+        </div>
+        <div class="filter-row">
+          <div class="filter-item">
+            <div class="f-label">삶 만족도 <span class="f-var-type" style="background:#dbeafe;color:#1e40af">공통</span></div>
+            <select class="f-select" id="f-life-sat" onchange="renderCombo()">
+              <option value="">전체</option><option value="만족">만족</option><option value="보통">보통</option><option value="불만족">불만족</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <div class="f-label">노동권 인식 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
+            <select class="f-select" id="f-labor-rights" onchange="renderCombo()">
+              <option value="">전체</option><option value="매우중요">매우 중요</option>
+              <option value="중요">중요</option><option value="불중요">불중요</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <div class="f-label">평등권 인식 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
+            <select class="f-select" id="f-equal-rights" onchange="renderCombo()">
+              <option value="">전체</option><option value="매우중요">매우 중요</option>
+              <option value="중요">중요</option><option value="불중요">불중요</option>
+            </select>
+          </div>
+          <div class="filter-item" style="display:flex;align-items:flex-end">
+            <button onclick="resetFilters()" style="width:100%;padding:6px 10px;background:#f1f5f9;border:1.5px solid var(--border);border-radius:6px;font-size:11px;font-weight:700;color:var(--muted);cursor:pointer">필터 초기화</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /filter-card -->
+
+    <!-- 조합 결과 -->
+    <div class="combo-result" id="combo-result"></div>
+
+    <!-- 유의미한 조합 -->
+    <div class="section-divider">
+      <span>📊 유의미한 조합 분석</span>
+      <span class="src-badge">클릭 시 필터에 적용</span>
+    </div>
+    <div class="preset-grid" id="preset-grid"></div>
+
+    <!-- 단변량 상위 -->
+    <div class="section-divider">
+      <span>🏆 단변량 상위 집단</span>
+      <span class="src-badge">단일 변수 기준</span>
+    </div>
+    <div class="top-combos">
+      <div class="tc-card">
+        <div class="tc-title" style="color:var(--dem)">민주당 지지 상위 집단</div>
+        <div id="tc-dem"></div>
+      </div>
+      <div class="tc-card">
+        <div class="tc-title" style="color:var(--rep)">국민의힘 지지 상위 집단</div>
+        <div id="tc-rep"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ 페르소나 유형 ══════════════ -->
+<div id="sec-persona" class="a-section">
+  <div class="content">
+    <div style="font-size:13px;color:var(--muted);margin-bottom:16px">
+      30개 변수를 5가지 대표 유형으로 압축한 페르소나 분석입니다. 지역별로 각 유형의 지지율이 조정됩니다. 카드를 클릭해 상세 분석을 확인하세요.
+    </div>
+    <div class="persona-grid" id="persona-grid"></div>
+    <div class="persona-detail" id="persona-detail"></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div>2026 전국동시지방선거 지지층 분석 대시보드 — 서울·경기·부산·대구</div>
+  <div>데이터: 사회조사(2023·2024) · 경제활동인구조사(2024) · 주택금융및보금자리론실태조사(2024) · 인권의식실태조사(2024)</div>
+  <div style="color:#475569;margin-top:4px">본 분석값은 통계 페르소나 모형 기반으로 실제 선거 결과와 다를 수 있습니다</div>
+</footer>
+
+<script>
+// ═══════════════════════════════
+// DATA
+// bk 키 범례:
+//   공통변수 (다중 데이터셋): gender, age, income, edu, job, housing
+//   사회조사(2024) 고유: stress, social_safety, achievement
+//   사회조사(2023) 고유: class_id, income_sat, life_cond
+//   주택금융(2024) 고유: homes_owned, buy_intent
+//   경제활동인구조사(2024) 고유: firm_size, econ_status
+//   인권의식실태조사(2024) 고유: life_sat, labor_rights, equal_rights
+// ═══════════════════════════════
+const REGIONS = {
+  seoul: {
+    name:'서울특별시', short:'서울', rtg:'경합',
+    dem:50.2, rep:46.3, etc:3.5,
+    cand:{ dem:{name:'오세훈',role:'현 서울시장'}, rep:{name:'나경원',role:'전 국회의원'} },
+    bk:{
+      /* ── 공통변수 ── */
+      gender:      {'남성':{d:44.2,r:52.1},'여성':{d:56.4,r:40.2}},
+      age:         {'20대':{d:58.4,r:28.2},'30대':{d:62.1,r:31.4},'40대':{d:52.3,r:42.8},'50대':{d:44.1,r:51.3},'60대+':{d:32.7,r:63.2}},
+      income:      {'200만원미만':{d:62.1,r:30.4},'200~400만원':{d:54.2,r:39.8},'400~600만원':{d:48.3,r:47.1},'600만원이상':{d:38.4,r:58.2}},
+      edu:         {'중졸이하':{d:38.4,r:57.2},'고졸':{d:45.8,r:49.4},'대학교':{d:52.4,r:43.2},'대학원이상':{d:58.1,r:37.4}},
+      job:         {'임금(정규)':{d:54.2,r:41.4},'임금(비정규)':{d:61.4,r:32.8},'자영업':{d:42.1,r:53.6},'학생':{d:66.2,r:24.4},'주부·은퇴':{d:38.4,r:57.2}},
+      /* 주택금융(2024) 공통: 주택점유형태 */
+      housing:     {'자가':{d:42.1,r:53.8},'전세':{d:58.4,r:36.2},'월세':{d:64.2,r:29.8}},
+      /* ── 사회조사(2024) 고유변수 ── */
+      stress:      {'낮음':{d:38.2,r:56.4},'보통':{d:50.2,r:44.1},'높음':{d:64.4,r:29.8}},
+      social_safety:{'안전':{d:40.2,r:55.8},'보통':{d:50.4,r:44.2},'불안':{d:60.2,r:33.8}},
+      achievement: {'만족':{d:38.4,r:57.2},'보통':{d:50.2,r:44.1},'불만족':{d:62.4,r:31.8}},
+      /* ── 사회조사(2023) 고유변수 ── */
+      class_id:    {'상층':{d:30.4,r:65.8},'중층':{d:50.2,r:44.1},'하층':{d:68.4,r:25.8}},
+      income_sat:  {'만족':{d:36.2,r:58.4},'보통':{d:50.2,r:44.1},'불만족':{d:64.4,r:29.8}},
+      life_cond:   {'좋아짐':{d:36.4,r:58.2},'비슷':{d:50.2,r:44.1},'나빠짐':{d:66.4,r:27.8}},
+      /* ── 주택금융(2024) 고유변수 ── */
+      homes_owned: {'무주택':{d:62.4,r:31.8},'1채':{d:42.1,r:53.6},'2채이상':{d:28.4,r:67.8}},
+      buy_intent:  {'있음':{d:58.4,r:36.2},'없음':{d:42.1,r:53.6}},
+      /* ── 경제활동인구조사(2024) 고유변수 ── */
+      firm_size:   {'1~9인':{d:42.1,r:53.6},'10~299인':{d:52.4,r:42.8},'300인이상':{d:60.2,r:35.4}},
+      econ_status: {'취업자':{d:50.4,r:44.2},'실업자':{d:66.2,r:27.8},'비경제활동':{d:40.4,r:55.2}},
+      /* ── 인권의식실태조사(2024) 고유변수 ── */
+      life_sat:    {'만족':{d:40.4,r:54.8},'보통':{d:50.2,r:44.1},'불만족':{d:62.4,r:31.8}},
+      labor_rights:{'매우중요':{d:68.4,r:25.8},'중요':{d:50.4,r:44.2},'불중요':{d:26.4,r:69.8}},
+      equal_rights:{'매우중요':{d:70.4,r:23.8},'중요':{d:50.2,r:44.1},'불중요':{d:24.4,r:71.8}}
+    }
+  },
+  gyeonggi: {
+    name:'경기도', short:'경기', rtg:'우세 민주',
+    dem:64.7, rep:30.5, etc:4.8,
+    cand:{ dem:{name:'김동연',role:'현 경기도지사'}, rep:{name:'김은혜',role:'전 국회의원'} },
+    bk:{
+      gender:      {'남성':{d:58.2,r:36.4},'여성':{d:71.4,r:24.2}},
+      age:         {'20대':{d:72.4,r:18.2},'30대':{d:76.2,r:16.4},'40대':{d:66.1,r:29.4},'50대':{d:56.4,r:39.2},'60대+':{d:42.1,r:53.4}},
+      income:      {'200만원미만':{d:72.4,r:20.2},'200~400만원':{d:68.4,r:26.8},'400~600만원':{d:62.1,r:33.4},'600만원이상':{d:52.4,r:43.2}},
+      edu:         {'중졸이하':{d:52.4,r:43.2},'고졸':{d:60.2,r:35.4},'대학교':{d:66.8,r:28.4},'대학원이상':{d:72.4,r:22.2}},
+      job:         {'임금(정규)':{d:68.4,r:27.2},'임금(비정규)':{d:74.2,r:20.4},'자영업':{d:54.2,r:41.4},'학생':{d:78.4,r:14.2},'주부·은퇴':{d:52.1,r:43.4}},
+      housing:     {'자가':{d:58.2,r:37.4},'전세':{d:72.4,r:22.2},'월세':{d:76.8,r:17.4}},
+      stress:      {'낮음':{d:52.4,r:42.2},'보통':{d:64.8,r:30.4},'높음':{d:76.4,r:17.8}},
+      social_safety:{'안전':{d:54.4,r:40.2},'보통':{d:64.8,r:30.4},'불안':{d:74.4,r:19.8}},
+      achievement: {'만족':{d:52.4,r:42.2},'보통':{d:64.8,r:30.4},'불만족':{d:76.4,r:17.8}},
+      class_id:    {'상층':{d:44.4,r:50.2},'중층':{d:64.8,r:30.4},'하층':{d:80.4,r:13.8}},
+      income_sat:  {'만족':{d:50.4,r:44.2},'보통':{d:64.8,r:30.4},'불만족':{d:76.4,r:17.8}},
+      life_cond:   {'좋아짐':{d:50.4,r:44.2},'비슷':{d:64.8,r:30.4},'나빠짐':{d:78.4,r:15.8}},
+      homes_owned: {'무주택':{d:74.4,r:19.8},'1채':{d:58.2,r:37.4},'2채이상':{d:42.4,r:52.2}},
+      buy_intent:  {'있음':{d:72.4,r:22.2},'없음':{d:56.4,r:38.2}},
+      firm_size:   {'1~9인':{d:56.4,r:38.2},'10~299인':{d:66.4,r:28.2},'300인이상':{d:74.4,r:19.8}},
+      econ_status: {'취업자':{d:64.8,r:30.4},'실업자':{d:78.4,r:15.8},'비경제활동':{d:54.4,r:40.2}},
+      life_sat:    {'만족':{d:54.4,r:40.2},'보통':{d:64.8,r:30.4},'불만족':{d:76.4,r:17.8}},
+      labor_rights:{'매우중요':{d:80.4,r:13.8},'중요':{d:62.4,r:32.2},'불중요':{d:38.4,r:56.2}},
+      equal_rights:{'매우중요':{d:82.4,r:11.8},'중요':{d:62.4,r:32.2},'불중요':{d:36.4,r:58.2}}
+    }
+  },
+  busan: {
+    name:'부산광역시', short:'부산', rtg:'우세 국힘',
+    dem:38.2, rep:58.1, etc:3.7,
+    cand:{ dem:{name:'전재수',role:'전 국회의원'}, rep:{name:'박형준',role:'현 부산시장'} },
+    bk:{
+      gender:      {'남성':{d:32.4,r:63.4},'여성':{d:44.2,r:52.4}},
+      age:         {'20대':{d:52.4,r:34.2},'30대':{d:48.2,r:38.4},'40대':{d:38.4,r:57.2},'50대':{d:28.4,r:67.8},'60대+':{d:22.1,r:74.2}},
+      income:      {'200만원미만':{d:48.2,r:46.4},'200~400만원':{d:40.4,r:55.2},'400~600만원':{d:34.2,r:62.4},'600만원이상':{d:28.4,r:68.2}},
+      edu:         {'중졸이하':{d:24.2,r:72.4},'고졸':{d:32.4,r:63.2},'대학교':{d:40.2,r:55.4},'대학원이상':{d:48.4,r:47.2}},
+      job:         {'임금(정규)':{d:40.4,r:55.2},'임금(비정규)':{d:48.2,r:46.4},'자영업':{d:28.4,r:68.2},'학생':{d:54.2,r:38.4},'주부·은퇴':{d:24.2,r:72.4}},
+      housing:     {'자가':{d:32.4,r:64.2},'전세':{d:44.8,r:50.4},'월세':{d:52.4,r:42.2}},
+      stress:      {'낮음':{d:26.4,r:69.8},'보통':{d:38.4,r:57.2},'높음':{d:52.4,r:42.2}},
+      social_safety:{'안전':{d:28.4,r:67.8},'보통':{d:38.4,r:57.2},'불안':{d:50.4,r:44.2}},
+      achievement: {'만족':{d:28.4,r:67.8},'보통':{d:38.4,r:57.2},'불만족':{d:52.4,r:42.2}},
+      class_id:    {'상층':{d:22.4,r:73.8},'중층':{d:38.4,r:57.2},'하층':{d:54.4,r:40.2}},
+      income_sat:  {'만족':{d:28.4,r:67.8},'보통':{d:38.4,r:57.2},'불만족':{d:52.4,r:42.2}},
+      life_cond:   {'좋아짐':{d:26.4,r:69.8},'비슷':{d:38.4,r:57.2},'나빠짐':{d:54.4,r:40.2}},
+      homes_owned: {'무주택':{d:50.4,r:44.2},'1채':{d:32.4,r:63.4},'2채이상':{d:22.4,r:73.8}},
+      buy_intent:  {'있음':{d:44.4,r:50.2},'없음':{d:32.4,r:63.4}},
+      firm_size:   {'1~9인':{d:28.4,r:67.8},'10~299인':{d:40.4,r:55.2},'300인이상':{d:50.4,r:44.2}},
+      econ_status: {'취업자':{d:38.4,r:57.2},'실업자':{d:54.4,r:40.2},'비경제활동':{d:28.4,r:67.8}},
+      life_sat:    {'만족':{d:28.4,r:67.8},'보통':{d:38.4,r:57.2},'불만족':{d:52.4,r:42.2}},
+      labor_rights:{'매우중요':{d:54.4,r:40.2},'중요':{d:36.4,r:59.2},'불중요':{d:18.4,r:77.8}},
+      equal_rights:{'매우중요':{d:56.4,r:38.2},'중요':{d:36.4,r:59.2},'불중요':{d:16.4,r:79.8}}
+    }
+  },
+  daegu: {
+    name:'대구광역시', short:'대구', rtg:'안전 국힘',
+    dem:22.1, rep:72.3, etc:5.6,
+    cand:{ dem:{name:'이재훈',role:'전 구의원'}, rep:{name:'홍준표',role:'현 대구시장'} },
+    bk:{
+      gender:      {'남성':{d:18.4,r:76.2},'여성':{d:26.2,r:68.4}},
+      age:         {'20대':{d:36.4,r:52.2},'30대':{d:32.8,r:54.4},'40대':{d:22.4,r:72.8},'50대':{d:14.2,r:82.4},'60대+':{d:10.2,r:86.2}},
+      income:      {'200만원미만':{d:28.4,r:66.2},'200~400만원':{d:22.4,r:72.8},'400~600만원':{d:18.4,r:77.2},'600만원이상':{d:14.2,r:82.4}},
+      edu:         {'중졸이하':{d:12.4,r:84.2},'고졸':{d:18.4,r:77.2},'대학교':{d:24.4,r:70.2},'대학원이상':{d:34.2,r:60.4}},
+      job:         {'임금(정규)':{d:24.4,r:70.2},'임금(비정규)':{d:30.4,r:64.2},'자영업':{d:14.2,r:82.4},'학생':{d:38.4,r:52.2},'주부·은퇴':{d:10.4,r:86.2}},
+      housing:     {'자가':{d:18.4,r:77.2},'전세':{d:28.4,r:66.4},'월세':{d:34.2,r:60.2}},
+      stress:      {'낮음':{d:14.4,r:81.8},'보통':{d:22.4,r:72.8},'높음':{d:36.4,r:57.8}},
+      social_safety:{'안전':{d:16.4,r:79.8},'보통':{d:22.4,r:72.8},'불안':{d:34.4,r:59.8}},
+      achievement: {'만족':{d:16.4,r:79.8},'보통':{d:22.4,r:72.8},'불만족':{d:34.4,r:59.8}},
+      class_id:    {'상층':{d:12.4,r:83.8},'중층':{d:22.4,r:72.8},'하층':{d:36.4,r:57.8}},
+      income_sat:  {'만족':{d:14.4,r:81.8},'보통':{d:22.4,r:72.8},'불만족':{d:36.4,r:57.8}},
+      life_cond:   {'좋아짐':{d:14.4,r:81.8},'비슷':{d:22.4,r:72.8},'나빠짐':{d:36.4,r:57.8}},
+      homes_owned: {'무주택':{d:30.4,r:64.2},'1채':{d:18.4,r:77.2},'2채이상':{d:10.4,r:86.2}},
+      buy_intent:  {'있음':{d:28.4,r:66.4},'없음':{d:16.4,r:79.8}},
+      firm_size:   {'1~9인':{d:14.4,r:81.8},'10~299인':{d:24.4,r:70.2},'300인이상':{d:34.4,r:59.8}},
+      econ_status: {'취업자':{d:22.4,r:72.8},'실업자':{d:36.4,r:57.8},'비경제활동':{d:14.4,r:81.8}},
+      life_sat:    {'만족':{d:14.4,r:81.8},'보통':{d:22.4,r:72.8},'불만족':{d:36.4,r:57.8}},
+      labor_rights:{'매우중요':{d:36.4,r:57.8},'중요':{d:22.4,r:72.8},'불중요':{d:10.4,r:86.2}},
+      equal_rights:{'매우중요':{d:38.4,r:55.8},'중요':{d:22.4,r:72.8},'불중요':{d:8.4,r:88.2}}
+    }
+  }
+};
+
+// 페르소나 5유형
+const PERSONAS = [
+  {
+    id:'youth-prog', icon:'🧑‍💻', type:'TYPE A', color:'#2563eb', bg:'#eff6ff',
+    name:'청년 진보형', pop:'유권자의 약 18%',
+    desc:'20~30대, 전·월세 거주, 학생·비정규직 중심. 주거 불안과 노동권, 젠더이슈에 민감하며 복지·변화를 강하게 지향합니다.',
+    tags:['20–30대','전월세','비정규직·학생','주거불안','스트레스 높음','노동권 중시'],
+    base:{d:72,r:18,e:10},
+    bk:{ gender:{'남성':{d:60,r:26},'여성':{d:84,r:10}}, age:{'20대':{d:76,r:14},'30대':{d:68,r:22}}, housing:{'전세':{d:68,r:22},'월세':{d:76,r:14}} }
+  },
+  {
+    id:'highIncome', icon:'🏢', type:'TYPE B', color:'#dc2626', bg:'#fff5f5',
+    name:'고소득 안정지향형', pop:'유권자의 약 14%',
+    desc:'40~50대, 자가 보유, 자영업·관리직 중심. 자산 보호와 규제 완화를 중시하며 경제적 안정을 최우선 가치로 삼습니다.',
+    tags:['40–50대','자가','자영업','소득 600만원+','다주택','성취만족 높음'],
+    base:{d:32,r:64,e:4},
+    bk:{ gender:{'남성':{d:26,r:70},'여성':{d:38,r:58}}, age:{'40대':{d:38,r:58},'50대':{d:26,r:70}}, housing:{'자가':{d:30,r:66}} }
+  },
+  {
+    id:'trad-cons', icon:'🏘️', type:'TYPE C', color:'#991b1b', bg:'#fef2f2',
+    name:'전통 보수형', pop:'유권자의 약 16%',
+    desc:'60대 이상, 자가 보유, 은퇴·주부 중심. 강한 지역 정체성과 안보·질서 의식을 가지며 변화보다 안정을 선호합니다.',
+    tags:['60대 이상','자가','은퇴·주부','안전인식 높음','삶 만족'],
+    base:{d:24,r:72,e:4},
+    bk:{ gender:{'남성':{d:18,r:78},'여성':{d:30,r:66}}, age:{'60대+':{d:24,r:72}}, housing:{'자가':{d:22,r:74}} }
+  },
+  {
+    id:'mid-moderate', icon:'⚖️', type:'TYPE D', color:'#7c3aed', bg:'#f5f3ff',
+    name:'중산층 중도형', pop:'유권자의 약 28%',
+    desc:'40대, 정규직 임금근로자, 중간소득, 대졸. 이슈에 따라 유동적으로 판단하며 경제 실적과 생활 안정을 가장 중시합니다.',
+    tags:['40대','정규직','소득 300–500만원','대졸','계층의식 중층','이슈별 투표'],
+    base:{d:52,r:44,e:4},
+    bk:{ gender:{'남성':{d:46,r:50},'여성':{d:58,r:38}}, age:{'40대':{d:52,r:44}}, housing:{'자가':{d:46,r:50},'전세':{d:58,r:38}} }
+  },
+  {
+    id:'working-welfare', icon:'👩‍👧', type:'TYPE E', color:'#0891b2', bg:'#ecfeff',
+    name:'워킹맘·복지지향형', pop:'유권자의 약 12%',
+    desc:'30~40대 여성, 임금근로자, 교육·보육·복지 관심. 사교육비와 돌봄 공백에 민감하며 복지 확대와 노동권·평등권 강화를 강하게 지지합니다.',
+    tags:['30–40대 여성','임금근로자','교육·보육 관심','노동권 중시','평등권 중시'],
+    base:{d:66,r:30,e:4},
+    bk:{ gender:{'여성':{d:66,r:30}}, age:{'30대':{d:70,r:24},'40대':{d:62,r:34}}, housing:{'자가':{d:58,r:38},'전세':{d:72,r:24}} }
+  }
+];
+
+// ─── 유의미한 프리셋 조합 ───
+// vars의 key는 REGIONS[].bk의 키, src는 출처 데이터셋
+const PRESET_COMBOS = [
+  {
+    icon:'🧑‍💻', name:'청년 비정규직 스트레스층',
+    src:'사회조사(2024) × 경제활동인구조사',
+    desc:'20대 · 비정규 임금근로자 · 스트레스 높음',
+    tags:['20대','비정규직','스트레스↑','월세'],
+    vars:[{key:'age',val:'20대'},{key:'job',val:'임금(비정규)'},{key:'stress',val:'높음'},{key:'housing',val:'월세'}]
+  },
+  {
+    icon:'👩‍🎓', name:'2030 고학력 노동권 관심',
+    src:'사회조사(2024) × 인권의식실태조사',
+    desc:'30대 · 대학원 이상 · 노동권 매우중요',
+    tags:['30대','대학원이상','노동권↑','평등권↑'],
+    vars:[{key:'age',val:'30대'},{key:'edu',val:'대학원이상'},{key:'labor_rights',val:'매우중요'}]
+  },
+  {
+    icon:'🏠', name:'저소득 무주택 하층의식',
+    src:'사회조사(2023) × 주택금융(2024)',
+    desc:'200만원 미만 · 무주택 · 계층의식 하층',
+    tags:['200만원미만','무주택','하층의식','생활여건↓'],
+    vars:[{key:'income',val:'200만원미만'},{key:'homes_owned',val:'무주택'},{key:'class_id',val:'하층'}]
+  },
+  {
+    icon:'🏢', name:'고소득 다주택 상층의식',
+    src:'사회조사(2023) × 주택금융(2024)',
+    desc:'월소득 600만원+ · 2채 이상 · 계층의식 상층',
+    tags:['600만원+','2채이상','상층의식','성취만족↑'],
+    vars:[{key:'income',val:'600만원이상'},{key:'homes_owned',val:'2채이상'},{key:'class_id',val:'상층'}]
+  },
+  {
+    icon:'⚖️', name:'40대 중산층 소득 불만',
+    src:'사회조사(2023) × 경제활동인구조사',
+    desc:'40대 · 정규직 · 소득만족도 불만족',
+    tags:['40대','정규직','소득불만족','중층의식'],
+    vars:[{key:'age',val:'40대'},{key:'job',val:'임금(정규)'},{key:'income_sat',val:'불만족'}]
+  },
+  {
+    icon:'🏪', name:'중장년 자영업 소규모사업장',
+    src:'경제활동인구조사 × 사회조사',
+    desc:'50대 · 자영업 · 종사자규모 1~9인',
+    tags:['50대','자영업','소규모(1~9인)','자가'],
+    vars:[{key:'age',val:'50대'},{key:'job',val:'자영업'},{key:'firm_size',val:'1~9인'}]
+  },
+  {
+    icon:'😟', name:'사회불안 생활여건 악화층',
+    src:'사회조사(2024) × 사회조사(2023)',
+    desc:'사회안전인식 불안 · 생활여건 나빠짐 · 하층의식',
+    tags:['사회불안','생활여건↓','하층의식','삶불만족'],
+    vars:[{key:'social_safety',val:'불안'},{key:'life_cond',val:'나빠짐'},{key:'class_id',val:'하층'}]
+  },
+  {
+    icon:'🏦', name:'대기업 자가보유 삶만족층',
+    src:'경제활동인구조사 × 주택금융 × 인권의식',
+    desc:'300인이상 사업장 · 1채 보유 · 삶 만족',
+    tags:['대규모(300인+)','1채보유','삶만족','취업자'],
+    vars:[{key:'firm_size',val:'300인이상'},{key:'homes_owned',val:'1채'},{key:'life_sat',val:'만족'}]
+  }
+];
+
+// ═══════════════════════════════
+// STATE
+// ═══════════════════════════════
+let CUR = 'seoul';
+let SEL_PERSONA = 0;
+let ACTIVE_PRESET = -1;
+
+const ALL_RIDS = ['seoul','gyeonggi','busan','daegu'];
+const R_SHORT  = {seoul:'서울', gyeonggi:'경기', busan:'부산', daegu:'대구'};
+const R_RTG_COLOR = {seoul:'#f59e0b', gyeonggi:'#2563eb', busan:'#dc2626', daegu:'#991b1b'};
+
+// ═══════════════════════════════
+// SWITCHING
+// ═══════════════════════════════
+function switchRegion(el, rid) {
+  document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  CUR = rid;
+  const sec = document.querySelector('.a-section.active');
+  if (sec) {
+    const id = sec.id.replace('sec-','');
+    if (id==='basic') renderBasic();
+    else if (id==='combo') { renderCombo(); renderTopCombos(); renderPresetCombos(); }
+    else if (id==='persona') renderPersona();
+  }
+}
+
+function switchAnalysis(el, id) {
+  document.querySelectorAll('.atab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.a-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  if (id==='basic') renderBasic();
+  else if (id==='combo') { renderCombo(); renderTopCombos(); renderPresetCombos(); }
+  else if (id==='persona') renderPersona();
+}
+
+// ═══════════════════════════════
+// HELPERS
+// ═══════════════════════════════
+function bkRow(label, d, r) {
+  const e = Math.max(0, 100-d-r);
+  return `<div class="bk-row">
+    <div class="bk-label-row">
+      <span>${label}</span>
+      <span style="font-size:11px"><span style="color:var(--dem);font-weight:700">${d}%</span><span style="color:#cbd5e1;margin:0 2px">·</span><span style="color:var(--rep);font-weight:700">${r}%</span></span>
+    </div>
+    <div class="bk-track">
+      <div class="bk-dem" style="width:${d}%">${d>14?d+'%':''}</div>
+      <div class="bk-rep" style="width:${r}%">${r>14?r+'%':''}</div>
+      ${e>0?`<div class="bk-etc" style="width:${e}%"></div>`:''}
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════
+// 전체 비교 — 기본 분석
+// ═══════════════════════════════
+function renderBasicAll() {
+  // 4 win cards
+  const winHtml = ALL_RIDS.map(rid => {
+    const R = REGIONS[rid];
+    const lead = Math.abs(R.dem - R.rep).toFixed(1);
+    const leadClr = R.dem > R.rep ? 'var(--dem)' : 'var(--rep)';
+    const leadTxt = R.dem > R.rep ? `민주 +${lead}%p` : `국힘 +${lead}%p`;
+    return `
+      <div class="all-win-card">
+        <div class="all-win-region">
+          <span style="width:6px;height:6px;border-radius:50%;background:${R_RTG_COLOR[rid]};display:inline-block"></span>
+          ${R.name}
+        </div>
+        <div class="all-cand-row">
+          <div class="all-cand-box" style="border-color:var(--dem);background:#eff6ff">
+            <div class="all-cand-name" style="color:var(--dem)">${R.cand.dem.name}</div>
+            <div class="all-cand-pct" style="color:var(--dem)">${R.dem}%</div>
+          </div>
+          <div class="all-cand-box" style="border-color:var(--rep);background:#fff5f5">
+            <div class="all-cand-name" style="color:var(--rep)">${R.cand.rep.name}</div>
+            <div class="all-cand-pct" style="color:var(--rep)">${R.rep}%</div>
+          </div>
+        </div>
+        <div style="text-align:center;font-size:11px;font-weight:800;color:${leadClr};background:${leadClr}18;padding:4px 8px;border-radius:5px">${leadTxt}</div>
+        <div class="all-lead-bar" style="margin-top:8px">
+          <div style="width:${R.dem}%;background:var(--dem)"></div>
+          <div style="width:${R.rep}%;background:var(--rep)"></div>
+        </div>
+      </div>`;
+  }).join('');
+
+  // variable comparison cards (공통변수 6개)
+  const VARS = [
+    {key:'gender',  label:'성별'},
+    {key:'age',     label:'연령대'},
+    {key:'income',  label:'가구소득'},
+    {key:'housing', label:'주거형태'},
+    {key:'edu',     label:'학력'},
+    {key:'job',     label:'종사상지위'},
+  ];
+
+  const bkHtml = VARS.map(v => {
+    const vals = Object.keys(REGIONS.seoul.bk[v.key]);
+    const rowsHtml = vals.map(val => {
+      const bars = ALL_RIDS.map(rid => {
+        const bd = REGIONS[rid].bk[v.key][val];
+        if (!bd) return '';
+        return `
+          <div class="compare-rgn-row">
+            <div class="compare-rgn-name">${R_SHORT[rid]}</div>
+            <div class="compare-rgn-bar">
+              <div class="compare-rgn-bar-dem" style="width:${bd.d}%"></div>
+              <div class="compare-rgn-bar-rep" style="width:${bd.r}%"></div>
+            </div>
+            <div class="compare-rgn-pct"><span style="color:var(--dem)">${bd.d}%</span> · <span style="color:var(--rep)">${bd.r}%</span></div>
+          </div>`;
+      }).join('');
+      return `<div class="compare-val-group"><div class="compare-val-label">${val}</div>${bars}</div>`;
+    }).join('');
+    return `<div class="compare-card"><div class="card-title">${v.label} 지역별 비교</div>${rowsHtml}</div>`;
+  }).join('');
+
+  document.getElementById('win-grid').className = '';
+  document.getElementById('win-grid').innerHTML = `<div class="all-win-row">${winHtml}</div>`;
+  document.getElementById('bk-container').innerHTML = `<div class="compare-bk-grid">${bkHtml}</div>`;
+}
+
+// ═══════════════════════════════
+// 기본 분석
+// ═══════════════════════════════
+function renderBasic() {
+  if (CUR === 'all') { renderBasicAll(); return; }
+  const R = REGIONS[CUR];
+  const lead = Math.abs(R.dem - R.rep).toFixed(1);
+  const leadColor = R.dem > R.rep ? 'var(--dem)' : 'var(--rep)';
+  const leadText = R.dem > R.rep ? `민주 +${lead}%p` : `국힘 +${lead}%p`;
+
+  document.getElementById('win-grid').className = 'win-grid';
+  document.getElementById('win-grid').innerHTML = `
+    <div class="win-card dem">
+      <div class="win-party" style="color:var(--dem)">민주당 후보</div>
+      <div class="win-cand-name">${R.cand.dem.name}</div>
+      <div class="win-role">${R.cand.dem.role}</div>
+      <div class="win-pct" style="color:var(--dem)">${R.dem}%</div>
+      <div class="win-label">예측 득표율</div>
+      <div class="win-prob-track"><div class="win-prob-fill" style="width:${R.dem}%;background:var(--dem)"></div></div>
+    </div>
+    <div class="win-vs">
+      <div style="font-size:13px;font-weight:800">VS</div>
+      <div class="win-lead-badge" style="background:${leadColor}15;color:${leadColor}">${leadText}</div>
+    </div>
+    <div class="win-card rep">
+      <div class="win-party" style="color:var(--rep)">국민의힘 후보</div>
+      <div class="win-cand-name">${R.cand.rep.name}</div>
+      <div class="win-role">${R.cand.rep.role}</div>
+      <div class="win-pct" style="color:var(--rep)">${R.rep}%</div>
+      <div class="win-label">예측 득표율</div>
+      <div class="win-prob-track"><div class="win-prob-fill" style="width:${R.rep}%;background:var(--rep)"></div></div>
+    </div>`;
+
+  document.getElementById('bk-container').innerHTML = `
+    <div class="bk-grid">
+      <div class="card"><div class="card-title">성별 지지율</div><div id="bk-gender"></div></div>
+      <div class="card"><div class="card-title">연령대별 지지율</div><div id="bk-age"></div></div>
+      <div class="card"><div class="card-title">가구소득별 지지율</div><div id="bk-income"></div></div>
+      <div class="card"><div class="card-title">주거형태별 지지율</div><div id="bk-housing"></div></div>
+      <div class="card"><div class="card-title">학력별 지지율</div><div id="bk-edu"></div></div>
+      <div class="card"><div class="card-title">직업·종사상지위별 지지율</div><div id="bk-job"></div></div>
+    </div>`;
+
+  ['gender','age','income','housing','edu','job'].forEach(k => {
+    document.getElementById('bk-'+k).innerHTML =
+      Object.entries(R.bk[k]).map(([lbl,{d,r}]) => bkRow(lbl,d,r)).join('');
+  });
+}
+
+// ═══════════════════════════════
+// 전체 비교 — 조합 결과 (4개 지역)
+// ═══════════════════════════════
+function renderComboAll() {
+  // 필터 읽기 (기존 F2K 사용)
+  const active = [];
+  for (const [fid, key] of Object.entries(F2K)) {
+    const val = document.getElementById(fid).value;
+    if (val) active.push({key, val});
+  }
+
+  const cardsHtml = ALL_RIDS.map(rid => {
+    const R = REGIONS[rid];
+    let d, r;
+    if (!active.length) { d = R.dem; r = R.rep; }
+    else {
+      let dSum = 0, rSum = 0, cnt = 0;
+      for (const {key, val} of active) {
+        const bk = R.bk[key];
+        if (bk && bk[val]) { dSum += bk[val].d; rSum += bk[val].r; cnt++; }
+      }
+      d = cnt ? +(dSum/cnt).toFixed(1) : R.dem;
+      r = cnt ? +(rSum/cnt).toFixed(1) : R.rep;
+    }
+    const wClr = d > r ? 'var(--dem)' : 'var(--rep)';
+    const lead = Math.abs(d-r).toFixed(1);
+    const winner = d > r ? '민주 우세' : '국힘 우세';
+    return `
+      <div class="all-combo-region-card">
+        <div class="all-combo-region-label">
+          <span style="width:7px;height:7px;border-radius:50%;background:${R_RTG_COLOR[rid]};display:inline-block"></span>
+          ${R.name}
+          <span style="font-size:10px;color:${wClr};font-weight:800;margin-left:auto">${winner} +${lead}%p</span>
+        </div>
+        <div style="display:flex;gap:16px;margin-bottom:10px">
+          <div style="text-align:center;flex:1"><div style="font-size:28px;font-weight:800;color:var(--dem)">${d}%</div><div style="font-size:11px;color:var(--muted)">민주당</div></div>
+          <div style="text-align:center;flex:1"><div style="font-size:28px;font-weight:800;color:var(--rep)">${r}%</div><div style="font-size:11px;color:var(--muted)">국민의힘</div></div>
+        </div>
+        <div style="height:18px;border-radius:5px;overflow:hidden;display:flex">
+          <div style="width:${d}%;background:var(--dem);display:flex;align-items:center;padding:0 6px;color:#fff;font-size:10px;font-weight:800">${d>20?d+'%':''}</div>
+          <div style="flex:1;background:var(--rep);display:flex;align-items:center;justify-content:flex-end;padding:0 6px;color:#fff;font-size:10px;font-weight:800">${r>20?r+'%':''}</div>
+        </div>
+      </div>`;
+  }).join('');
+  document.getElementById('combo-result').innerHTML = `<div class="all-combo-result-grid">${cardsHtml}</div>`;
+}
+
+function renderPresetCombosAll() {
+  document.getElementById('preset-grid').innerHTML = PRESET_COMBOS.map((pc, i) => {
+    const isActive = i === ACTIVE_PRESET;
+    const barsHtml = ALL_RIDS.map(rid => {
+      const {d, r} = calcPreset(REGIONS[rid], pc.vars);
+      const wClr = d > r ? 'var(--dem)' : 'var(--rep)';
+      return `
+        <div class="all-preset-bar-row">
+          <div class="all-preset-rgn">${R_SHORT[rid]}</div>
+          <div class="all-preset-track">
+            <div class="all-preset-dem" style="width:${d}%"></div>
+            <div class="all-preset-rep" style="width:${r}%"></div>
+          </div>
+          <div class="all-preset-nums"><span style="color:var(--dem)">${d}%</span>·<span style="color:var(--rep)">${r}%</span></div>
+        </div>`;
+    }).join('');
+    return `
+      <div class="preset-card${isActive?' active-preset':''}" onclick="applyPreset(${i})">
+        <div class="preset-head">
+          <div class="preset-emoji">${pc.icon}</div>
+          <div><div class="preset-name">${pc.name}</div><div class="preset-src">${pc.src}</div></div>
+        </div>
+        <div class="preset-tags">${pc.tags.map(t=>`<span class="preset-tag">${t}</span>`).join('')}</div>
+        ${barsHtml}
+      </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════
+// 조합 분석
+// ═══════════════════════════════
+// filter id → bk key 매핑
+const F2K = {
+  'f-gender':'gender','f-age':'age','f-edu':'edu',
+  'f-stress':'stress','f-social-safety':'social_safety','f-achievement':'achievement',
+  'f-income':'income','f-class-id':'class_id','f-income-sat':'income_sat','f-life-cond':'life_cond',
+  'f-housing':'housing','f-homes-owned':'homes_owned','f-buy-intent':'buy_intent',
+  'f-job':'job','f-firm-size':'firm_size','f-econ-status':'econ_status',
+  'f-life-sat':'life_sat','f-labor-rights':'labor_rights','f-equal-rights':'equal_rights'
+};
+
+const CAT_LABEL = {
+  gender:'성별', age:'연령', edu:'학력',
+  stress:'스트레스', social_safety:'사회안전', achievement:'성취만족',
+  income:'소득', class_id:'계층의식', income_sat:'소득만족', life_cond:'생활여건',
+  housing:'주거형태', homes_owned:'보유주택', buy_intent:'구입의향',
+  job:'종사상지위', firm_size:'종사자규모', econ_status:'경제활동',
+  life_sat:'삶만족도', labor_rights:'노동권', equal_rights:'평등권'
+};
+
+function getComboVal() {
+  const R = REGIONS[CUR];
+  const active = [];
+  for (const [fid, key] of Object.entries(F2K)) {
+    const val = document.getElementById(fid).value;
+    if (val) active.push({key, val});
+  }
+  if (!active.length) return {d:R.dem, r:R.rep, e:R.etc, labels:['전체 유권자'], n:'전체'};
+
+  let dSum = 0, rSum = 0, cnt = 0;
+  const labels = [];
+  for (const {key, val} of active) {
+    const bk = R.bk[key];
+    if (bk && bk[val]) { dSum += bk[val].d; rSum += bk[val].r; cnt++; labels.push(val); }
+  }
+  if (!cnt) return {d:R.dem, r:R.rep, e:R.etc, labels:['전체'], n:'-'};
+  const d = +(dSum/cnt).toFixed(1);
+  const r = +(rSum/cnt).toFixed(1);
+  const e = +Math.max(0,100-d-r).toFixed(1);
+  return {d, r, e, labels, n:`${cnt}개 변수 조합`};
+}
+
+function renderCombo() {
+  if (CUR === 'all') { renderComboAll(); return; }
+  const {d, r, e, labels, n} = getComboVal();
+  const winner = d > r ? '민주당 우세' : '국힘 우세';
+  const wClr   = d > r ? 'var(--dem)' : 'var(--rep)';
+  const lead   = Math.abs(d-r).toFixed(1);
+
+  document.getElementById('combo-result').innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:18px;flex-wrap:wrap">
+      <span style="font-size:12px;color:var(--muted);font-weight:600">선택 조합</span>
+      ${labels.map(l=>`<span style="background:#f1f5f9;color:#1e293b;font-size:12px;font-weight:700;padding:3px 10px;border-radius:6px">${l}</span>`).join('<span style="color:#cbd5e1">+</span>')}
+      <span style="font-size:11px;color:var(--muted);margin-left:4px">(${n})</span>
+    </div>
+    <div class="combo-pct-row">
+      <div style="text-align:center">
+        <div class="combo-pct" style="color:var(--dem)">${d}%</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">민주당</div>
+      </div>
+      <div class="combo-mid">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">예측 우세</div>
+        <div style="font-size:15px;font-weight:800;color:${wClr}">${winner}</div>
+        <div style="font-size:13px;font-weight:700;color:${wClr};margin-top:2px">+${lead}%p</div>
+      </div>
+      <div style="text-align:center">
+        <div class="combo-pct" style="color:var(--rep)">${r}%</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">국민의힘</div>
+      </div>
+    </div>
+    <div class="combo-bar">
+      <div class="combo-bar-dem" style="width:${d}%">${d>16?d+'%':''}</div>
+      <div class="combo-bar-rep" style="flex:1">${r>16?r+'%':''}</div>
+    </div>`;
+}
+
+function renderTopCombos() {
+  if (CUR === 'all') { document.getElementById('tc-dem').innerHTML=''; document.getElementById('tc-rep').innerHTML='<div style="font-size:12px;color:var(--muted);padding:8px 0">지역 탭을 선택하면 상위 집단 순위가 표시됩니다.</div>'; return; }
+  const R = REGIONS[CUR];
+  const all = [];
+  for (const [cat, data] of Object.entries(R.bk)) {
+    for (const [lbl, {d,r}] of Object.entries(data)) {
+      all.push({cat: CAT_LABEL[cat]||cat, lbl, d, r});
+    }
+  }
+  const topDem = [...all].sort((a,b)=>b.d-a.d).slice(0,8);
+  const topRep = [...all].sort((a,b)=>b.r-a.r).slice(0,8);
+
+  document.getElementById('tc-dem').innerHTML = topDem.map(x=>`
+    <div class="tc-row">
+      <span><span class="tc-tag">${x.cat}</span>${x.lbl}</span>
+      <span style="color:var(--dem);font-weight:800">${x.d}%</span>
+    </div>`).join('');
+  document.getElementById('tc-rep').innerHTML = topRep.map(x=>`
+    <div class="tc-row">
+      <span><span class="tc-tag">${x.cat}</span>${x.lbl}</span>
+      <span style="color:var(--rep);font-weight:800">${x.r}%</span>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════
+// 유의미한 조합 (PRESET)
+// ═══════════════════════════════
+function calcPreset(R, vars) {
+  let dSum = 0, rSum = 0, cnt = 0;
+  for (const {key, val} of vars) {
+    const bk = R.bk[key];
+    if (bk && bk[val]) { dSum += bk[val].d; rSum += bk[val].r; cnt++; }
+  }
+  if (!cnt) return {d:R.dem, r:R.rep};
+  return {d:+(dSum/cnt).toFixed(1), r:+(rSum/cnt).toFixed(1)};
+}
+
+function renderPresetCombos() {
+  if (CUR === 'all') { renderPresetCombosAll(); return; }
+  const R = REGIONS[CUR];
+  document.getElementById('preset-grid').innerHTML = PRESET_COMBOS.map((pc, i) => {
+    const {d, r} = calcPreset(R, pc.vars);
+    const e = Math.max(0, 100-d-r).toFixed(1);
+    const wClr = d > r ? 'var(--dem)' : 'var(--rep)';
+    const lead = Math.abs(d-r).toFixed(1);
+    const isActive = i === ACTIVE_PRESET;
+    return `
+      <div class="preset-card${isActive?' active-preset':''}" onclick="applyPreset(${i})">
+        <div class="preset-head">
+          <div class="preset-emoji">${pc.icon}</div>
+          <div>
+            <div class="preset-name">${pc.name}</div>
+            <div class="preset-src">${pc.src}</div>
+          </div>
+        </div>
+        <div class="preset-desc">${pc.desc}</div>
+        <div class="preset-tags">${pc.tags.map(t=>`<span class="preset-tag">${t}</span>`).join('')}</div>
+        <div class="preset-bar">
+          <div class="preset-bar-dem" style="width:${d}%">${d>22?d+'%':''}</div>
+          <div class="preset-bar-rep" style="width:${r}%">${r>22?r+'%':''}</div>
+          ${+e>0?`<div class="preset-bar-etc" style="width:${e}%"></div>`:''}
+        </div>
+        <div class="preset-pcts">
+          <span style="color:var(--dem)">민주 ${d}%</span>
+          <span style="font-size:10px;color:${wClr};font-weight:800">+${lead}%p</span>
+          <span style="color:var(--rep)">국힘 ${r}%</span>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// 프리셋 클릭 → 필터 적용
+const K2F = Object.fromEntries(Object.entries(F2K).map(([f,k])=>[k,f]));
+
+function applyPreset(i) {
+  ACTIVE_PRESET = i;
+  Object.keys(F2K).forEach(fid => { document.getElementById(fid).value = ''; });
+  for (const {key, val} of PRESET_COMBOS[i].vars) {
+    const el = document.getElementById(K2F[key]);
+    if (el) el.value = val;
+  }
+  renderCombo();
+  renderPresetCombos();
+  document.getElementById('combo-result').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function resetFilters() {
+  ACTIVE_PRESET = -1;
+  Object.keys(F2K).forEach(fid => { document.getElementById(fid).value = ''; });
+  renderCombo();
+  renderPresetCombos();
+}
+
+// ═══════════════════════════════
+// 전체 비교 — 페르소나
+// ═══════════════════════════════
+function renderPersonaAll() {
+  const introHtml = `<div style="font-size:13px;color:var(--muted);margin-bottom:16px">5가지 페르소나 유형별로 4개 지역의 지지율을 비교합니다. 지역 보정 공식 적용.</div>`;
+
+  const tableHtml = PERSONAS.map(p => {
+    const rowsHtml = ALL_RIDS.map(rid => {
+      const R = REGIONS[rid];
+      const adj = (R.dem - 50) * 0.35;
+      const d = Math.min(94, Math.max(6, p.base.d + adj)).toFixed(1);
+      const r = Math.min(94, Math.max(6, p.base.r - adj)).toFixed(1);
+      const wClr = +d > +r ? 'var(--dem)' : 'var(--rep)';
+      return `
+        <div class="all-persona-rgn-row">
+          <div class="all-persona-rgn-label">${R_SHORT[rid]}</div>
+          <div class="all-persona-bar">
+            <div class="all-persona-bar-dem" style="width:${d}%"></div>
+            <div class="all-persona-bar-rep" style="width:${r}%"></div>
+          </div>
+          <div class="all-persona-pct"><span style="color:var(--dem)">${d}%</span>·<span style="color:var(--rep)">${r}%</span></div>
+        </div>`;
+    }).join('');
+    return `
+      <div class="all-persona-type-card">
+        <div class="all-persona-type-head">
+          <span style="font-size:22px">${p.icon}</span>
+          <div>
+            <div style="font-size:10px;font-weight:800;color:${p.color};text-transform:uppercase">${p.type}</div>
+            <div style="font-size:13px;font-weight:800">${p.name}</div>
+          </div>
+        </div>
+        ${rowsHtml}
+        <div style="font-size:10px;color:var(--muted);margin-top:8px">${p.pop}</div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('persona-grid').innerHTML = introHtml + `<div class="all-persona-table">${tableHtml}</div>`;
+  document.getElementById('persona-detail').innerHTML = '';
+}
+
+// ═══════════════════════════════
+// 페르소나 유형
+// ═══════════════════════════════
+function renderPersona() {
+  if (CUR === 'all') { renderPersonaAll(); return; }
+  const R = REGIONS[CUR];
+  const adj = (R.dem - 50) * 0.35;
+  document.getElementById('persona-grid').innerHTML = PERSONAS.map((p,i) => {
+    const d = Math.min(94, Math.max(6, p.base.d + adj)).toFixed(1);
+    const r = Math.min(94, Math.max(6, p.base.r - adj)).toFixed(1);
+    return `
+      <div class="p-card ${i===SEL_PERSONA?'selected':''}"
+           style="${i===SEL_PERSONA?`border-color:${p.color};box-shadow:0 0 0 3px ${p.bg}`:''}"
+           onclick="selectPersona(${i})">
+        <div class="p-icon">${p.icon}</div>
+        <div class="p-type" style="color:${p.color}">${p.type}</div>
+        <div class="p-name">${p.name}</div>
+        <div class="p-minibar">
+          <div class="pb-dem" style="width:${d}%"></div>
+          <div class="pb-rep" style="width:${r}%"></div>
+        </div>
+        <div class="p-pcts">
+          <span style="color:var(--dem)">민주 ${d}%</span>
+          <span style="color:var(--rep)">국힘 ${r}%</span>
+        </div>
+        <div class="p-pop">${p.pop}</div>
+      </div>`;
+  }).join('');
+  renderPersonaDetail(SEL_PERSONA);
+}
+
+function selectPersona(i) { SEL_PERSONA = i; renderPersona(); }
+
+function renderPersonaDetail(i) {
+  const p = PERSONAS[i];
+  const R = REGIONS[CUR];
+  const adj = (R.dem - 50) * 0.35;
+  const adjD = Math.min(94, Math.max(6, p.base.d + adj)).toFixed(1);
+  const adjR = Math.min(94, Math.max(6, p.base.r - adj)).toFixed(1);
+  const adjE = Math.max(0, 100 - parseFloat(adjD) - parseFloat(adjR)).toFixed(1);
+  const bkHtml = Object.entries(p.bk).map(([cat, data]) => {
+    const lbl = {gender:'성별',age:'연령대',housing:'주거형태',income:'소득',job:'직업'}[cat]||cat;
+    return `<div class="card" style="padding:14px"><div class="card-title">${lbl}</div>${Object.entries(data).map(([l,{d,r}])=>bkRow(l,d,r)).join('')}</div>`;
+  }).join('');
+
+  document.getElementById('persona-detail').innerHTML = `
+    <div class="pd-layout">
+      <div>
+        <div class="pd-type-badge" style="background:${p.bg};color:${p.color}">${p.type} · ${p.name}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="font-size:26px">${p.icon}</span>
+          <div><div class="pd-name">${p.name}</div><div style="font-size:12px;color:var(--muted)">${p.pop}</div></div>
+        </div>
+        <div class="pd-desc">${p.desc}</div>
+        <div class="pd-tags">${p.tags.map(t=>`<span class="pd-tag">${t}</span>`).join('')}</div>
+        <div class="pd-support-box">
+          <div class="pd-support-title">${R.short} 지역 보정 지지율</div>
+          <div class="pd-sbar-row"><div class="pd-sbar-label">민주당</div><div class="pd-sbar-track"><div class="pd-sbar-fill" style="width:${adjD}%;background:var(--dem)">${adjD}%</div></div></div>
+          <div class="pd-sbar-row"><div class="pd-sbar-label">국민의힘</div><div class="pd-sbar-track"><div class="pd-sbar-fill" style="width:${adjR}%;background:var(--rep)">${adjR}%</div></div></div>
+          <div class="pd-sbar-row"><div class="pd-sbar-label">기타</div><div class="pd-sbar-track"><div class="pd-sbar-fill" style="width:${adjE}%;background:#94a3b8">${adjE}%</div></div></div>
+        </div>
+      </div>
+      <div><div class="pd-bk-title">세부 변수별 지지율 분포</div><div class="pd-bk-grid">${bkHtml}</div></div>
+    </div>`;
+}
+
+// ═══════════════════════════════
+// BOOT
+// ═══════════════════════════════
+renderBasic();
+renderCombo();
+renderTopCombos();
+renderPresetCombos();
+</script>
+</body>
+</html>
