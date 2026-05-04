@@ -67,19 +67,30 @@ body{font-family:-apple-system,'Malgun Gothic','Apple SD Gothic Neo',sans-serif;
 .bk-etc{background:#cbd5e1;height:100%}
 
 /* COMBO FILTER */
-.filter-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
-.ds-block{margin-bottom:16px;padding:12px 14px;background:#f8fafc;border:1px solid var(--border);border-radius:8px}
-.ds-block:last-child{margin-bottom:0}
-.ds-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.ds-name{font-size:11px;font-weight:800;color:var(--text);letter-spacing:.02em}
-.ds-badge{font-size:9px;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:.02em}
-.ds-vars{font-size:10px;color:var(--muted);margin-left:auto}
-.filter-row{display:flex;flex-wrap:wrap;gap:10px}
-.filter-item{flex:1;min-width:110px;max-width:200px}
-.f-label{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;display:flex;align-items:center;gap:4px}
-.f-var-type{font-size:9px;background:#e2e8f0;color:#475569;padding:1px 5px;border-radius:3px;font-weight:700;text-transform:none;letter-spacing:0}
-.f-select{width:100%;padding:6px 8px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;outline:none;background:#fff;cursor:pointer}
-.f-select:focus{border-color:var(--dem)}
+.filter-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-bottom:16px}
+.filter-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}
+.chip-group{padding:16px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.chip-group-header{font-size:13px;font-weight:800;color:var(--text);letter-spacing:.01em;display:flex;align-items:center;gap:8px;padding-bottom:10px;margin-bottom:12px;border-bottom:2px solid #f1f5f9}
+.grp-reset{margin-left:auto;padding:3px 10px;background:transparent;border:1px solid #e2e8f0;border-radius:12px;font-size:10px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .15s;flex-shrink:0}
+.grp-reset:hover{border-color:#94a3b8;color:var(--text);background:#f8fafc}
+.chip-var-section{margin-bottom:10px}
+.chip-var-section:last-child{margin-bottom:0}
+.chip-var-label{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;padding:6px 13px;border:1.5px solid #e2e8f0;border-radius:20px;font-size:12px;font-weight:500;color:#475569;background:#fff;cursor:pointer;transition:all .15s;user-select:none;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.chip:hover{border-color:#94a3b8;color:var(--text);box-shadow:0 2px 5px rgba(0,0,0,.08)}
+.chip.active{border-color:var(--dem);background:var(--dem);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(37,99,235,.25)}
+.chip-group-inner-2col{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px}
+.filter-groups-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;align-items:stretch}
+.filter-groups-grid .chip-group{grid-column:span 2}
+.filter-groups-grid .chip-group:nth-child(4){grid-column:1/3}
+.filter-groups-grid .chip-group:nth-child(5){grid-column:3/7}
+.result-chip{display:inline-flex;align-items:center;gap:5px;background:var(--dem-lt);border:1.5px solid var(--dem);color:var(--dem-dk);font-size:12px;font-weight:700;padding:3px 6px 3px 10px;border-radius:20px}
+.result-chip-cat{font-size:10px;color:#3b82f6;font-weight:600}
+.result-chip-x{cursor:pointer;color:#60a5fa;font-size:15px;font-weight:800;line-height:1;padding:0 2px}
+.result-chip-x:hover{color:var(--dem-dk)}
+@media(max-width:1100px){.filter-groups-grid{grid-template-columns:repeat(4,1fr)}.filter-groups-grid .chip-group{grid-column:span 2}.filter-groups-grid .chip-group:nth-child(4){grid-column:span 2}.filter-groups-grid .chip-group:nth-child(5){grid-column:span 2}}
+@media(max-width:700px){.filter-groups-grid{grid-template-columns:1fr}.filter-groups-grid .chip-group{grid-column:span 1}.filter-groups-grid .chip-group:nth-child(4){grid-column:span 1}.filter-groups-grid .chip-group:nth-child(5){grid-column:span 1}}
 
 .combo-result{background:#fff;border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:16px}
 .combo-pct-row{display:grid;grid-template-columns:1fr 120px 1fr;gap:8px;align-items:center;margin-bottom:18px}
@@ -117,7 +128,7 @@ body{font-family:-apple-system,'Malgun Gothic','Apple SD Gothic Neo',sans-serif;
 .tc-tag{font-size:10px;background:#f1f5f9;color:#64748b;padding:2px 6px;border-radius:4px;margin-right:6px;font-weight:600}
 
 /* PERSONA */
-.persona-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px}
+.persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
 .p-card{background:#fff;border:2px solid var(--border);border-radius:12px;padding:16px 14px;cursor:pointer;transition:all .15s;text-align:center}
 .p-card:hover{border-color:#94a3b8;transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
 .p-card.selected{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1)}
@@ -178,7 +189,7 @@ body{font-family:-apple-system,'Malgun Gothic','Apple SD Gothic Neo',sans-serif;
 .all-preset-rep{background:var(--rep);height:100%}
 .all-preset-nums{font-size:10px;font-weight:700;width:70px;text-align:right;flex-shrink:0}
 
-.all-persona-table{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:0}
+.all-persona-table{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:0}
 .all-persona-type-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px}
 .all-persona-type-head{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
 .all-persona-rgn-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
@@ -207,7 +218,6 @@ body{font-family:-apple-system,'Malgun Gothic','Apple SD Gothic Neo',sans-serif;
 </header>
 
 <nav class="region-tabs">
-  <div class="rtab" onclick="switchRegion(this,'all')">전체 비교 <span class="rtag" style="background:#475569;color:#fff">4개 지역</span></div>
   <div class="rtab active" onclick="switchRegion(this,'seoul')">서울 <span class="rtag" style="background:#f59e0b;color:#fff">경합</span></div>
   <div class="rtab" onclick="switchRegion(this,'gyeonggi')">경기 <span class="rtag" style="background:#2563eb;color:#fff">민주 우세</span></div>
   <div class="rtab" onclick="switchRegion(this,'busan')">부산 <span class="rtag" style="background:#dc2626;color:#fff">국힘 우세</span></div>
@@ -242,196 +252,198 @@ body{font-family:-apple-system,'Malgun Gothic','Apple SD Gothic Neo',sans-serif;
   <div class="content">
 
     <div class="filter-card">
-      <div style="font-size:14px;font-weight:700;margin-bottom:16px">변수 조합 선택
-        <span style="font-size:12px;color:var(--muted);font-weight:400">— 데이터셋별 변수를 조합해 해당 집단의 지지율을 추정합니다</span>
+      <div class="filter-card-header">
+        <div>
+          <div style="font-size:15px;font-weight:800;margin-bottom:4px">변수 조합 선택</div>
+          <div style="font-size:12px;color:var(--muted)">분석에 사용할 변수를 선택하세요. 각 항목에서 하나씩 선택 가능합니다.</div>
+        </div>
+        <button onclick="resetFilters()" style="flex-shrink:0;display:flex;align-items:center;gap:5px;padding:7px 16px;background:#fff;border:1.5px solid var(--border);border-radius:20px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;white-space:nowrap">↺ 선택 초기화</button>
       </div>
 
-      <!-- 사회조사(2024) -->
-      <div class="ds-block">
-        <div class="ds-header">
-          <div class="ds-name">📋 사회조사 (2024)</div>
-          <span class="ds-badge" style="background:#dbeafe;color:#1e40af">공통</span>
-          <span class="ds-badge" style="background:#fef3c7;color:#92400e">고유</span>
-          <span class="ds-vars">성별코드·만연령·교육정도코드·종사상지위코드·가구소득코드 + 스트레스·사회안전인식도·성취만족도·가족관계만족도</span>
+      <div class="filter-groups-grid">
+      <!-- 인구학적 변수 -->
+      <div class="chip-group">
+        <div class="chip-group-header">👤 인구학적 변수<button class="grp-reset" onclick="resetGroup(['gender','age','edu'])">초기화</button></div>
+        <div class="chip-var-section">
+          <div class="chip-var-label">성별</div>
+          <div class="chip-row">
+            <span class="chip" data-key="gender" data-val="남성" onclick="toggleChip(this)">남성</span>
+            <span class="chip" data-key="gender" data-val="여성" onclick="toggleChip(this)">여성</span>
+          </div>
         </div>
-        <div class="filter-row">
-          <div class="filter-item">
-            <div class="f-label">성별 <span class="f-var-type" style="background:#dbeafe;color:#1e40af">공통</span></div>
-            <select class="f-select" id="f-gender" onchange="renderCombo()">
-              <option value="">전체</option><option value="남성">남성</option><option value="여성">여성</option>
-            </select>
+        <div class="chip-var-section">
+          <div class="chip-var-label">연령대</div>
+          <div class="chip-row">
+            <span class="chip" data-key="age" data-val="20대" onclick="toggleChip(this)">20대</span>
+            <span class="chip" data-key="age" data-val="30대" onclick="toggleChip(this)">30대</span>
+            <span class="chip" data-key="age" data-val="40대" onclick="toggleChip(this)">40대</span>
+            <span class="chip" data-key="age" data-val="50대" onclick="toggleChip(this)">50대</span>
+            <span class="chip" data-key="age" data-val="60대+" onclick="toggleChip(this)">60대+</span>
           </div>
-          <div class="filter-item">
-            <div class="f-label">연령대 <span class="f-var-type" style="background:#dbeafe;color:#1e40af">공통</span></div>
-            <select class="f-select" id="f-age" onchange="renderCombo()">
-              <option value="">전체</option><option value="20대">20대</option><option value="30대">30대</option>
-              <option value="40대">40대</option><option value="50대">50대</option><option value="60대+">60대 이상</option>
-            </select>
-          </div>
-          <div class="filter-item">
-            <div class="f-label">학력 <span class="f-var-type" style="background:#dbeafe;color:#1e40af">공통</span></div>
-            <select class="f-select" id="f-edu" onchange="renderCombo()">
-              <option value="">전체</option><option value="중졸이하">중졸 이하</option>
-              <option value="고졸">고졸</option><option value="대학교">대학교</option><option value="대학원이상">대학원 이상</option>
-            </select>
-          </div>
-          <div class="filter-item">
-            <div class="f-label">스트레스정도 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
-            <select class="f-select" id="f-stress" onchange="renderCombo()">
-              <option value="">전체</option><option value="낮음">낮음</option><option value="보통">보통</option><option value="높음">높음</option>
-            </select>
-          </div>
-          <div class="filter-item">
-            <div class="f-label">사회안전인식도 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
-            <select class="f-select" id="f-social-safety" onchange="renderCombo()">
-              <option value="">전체</option><option value="안전">안전</option><option value="보통">보통</option><option value="불안">불안</option>
-            </select>
-          </div>
-          <div class="filter-item">
-            <div class="f-label">성취만족도 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
-            <select class="f-select" id="f-achievement" onchange="renderCombo()">
-              <option value="">전체</option><option value="만족">만족</option><option value="보통">보통</option><option value="불만족">불만족</option>
-            </select>
+        </div>
+        <div class="chip-var-section">
+          <div class="chip-var-label">학력</div>
+          <div class="chip-row">
+            <span class="chip" data-key="edu" data-val="중졸이하" onclick="toggleChip(this)">중졸이하</span>
+            <span class="chip" data-key="edu" data-val="고졸" onclick="toggleChip(this)">고졸</span>
+            <span class="chip" data-key="edu" data-val="대학교" onclick="toggleChip(this)">대학교</span>
+            <span class="chip" data-key="edu" data-val="대학원이상" onclick="toggleChip(this)">대학원이상</span>
           </div>
         </div>
       </div>
 
-      <!-- 사회조사(2023) -->
-      <div class="ds-block">
-        <div class="ds-header">
-          <div class="ds-name">📋 사회조사 (2023)</div>
-          <span class="ds-badge" style="background:#dbeafe;color:#1e40af">공통</span>
-          <span class="ds-badge" style="background:#fef3c7;color:#92400e">고유</span>
-          <span class="ds-vars">성별코드·만연령·교육정도코드·가구소득코드 + 계층의식코드·소득만족도·생활여건변화</span>
-        </div>
-        <div class="filter-row">
-          <div class="filter-item">
-            <div class="f-label">가구소득 <span class="f-var-type" style="background:#dbeafe;color:#1e40af">공통</span></div>
-            <select class="f-select" id="f-income" onchange="renderCombo()">
-              <option value="">전체</option><option value="200만원미만">200만원 미만</option>
-              <option value="200~400만원">200~400만원</option><option value="400~600만원">400~600만원</option>
-              <option value="600만원이상">600만원 이상</option>
-            </select>
-          </div>
-          <div class="filter-item">
-            <div class="f-label">계층의식 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
-            <select class="f-select" id="f-class-id" onchange="renderCombo()">
-              <option value="">전체</option><option value="상층">상층</option><option value="중층">중층</option><option value="하층">하층</option>
-            </select>
-          </div>
-          <div class="filter-item">
-            <div class="f-label">소득만족도 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
-            <select class="f-select" id="f-income-sat" onchange="renderCombo()">
-              <option value="">전체</option><option value="만족">만족</option><option value="보통">보통</option><option value="불만족">불만족</option>
-            </select>
-          </div>
-          <div class="filter-item">
-            <div class="f-label">생활여건변화 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
-            <select class="f-select" id="f-life-cond" onchange="renderCombo()">
-              <option value="">전체</option><option value="좋아짐">좋아짐</option><option value="비슷">비슷</option><option value="나빠짐">나빠짐</option>
-            </select>
+      <!-- 경제·소득 -->
+      <div class="chip-group">
+        <div class="chip-group-header">💰 경제·소득<button class="grp-reset" onclick="resetGroup(['income','income_sat','class_id','life_cond'])">초기화</button></div>
+        <div class="chip-var-section">
+          <div class="chip-var-label">가구소득</div>
+          <div class="chip-row">
+            <span class="chip" data-key="income" data-val="200만원미만" onclick="toggleChip(this)">200만원 미만</span>
+            <span class="chip" data-key="income" data-val="200~400만원" onclick="toggleChip(this)">200~400만원</span>
+            <span class="chip" data-key="income" data-val="400~600만원" onclick="toggleChip(this)">400~600만원</span>
+            <span class="chip" data-key="income" data-val="600만원이상" onclick="toggleChip(this)">600만원이상</span>
           </div>
         </div>
-      </div>
-
-      <!-- 주택금융및보금자리론실태조사(2024) -->
-      <div class="ds-block">
-        <div class="ds-header">
-          <div class="ds-name">🏠 주택금융및보금자리론실태조사 (2024)</div>
-          <span class="ds-badge" style="background:#dbeafe;color:#1e40af">공통</span>
-          <span class="ds-badge" style="background:#fef3c7;color:#92400e">고유</span>
-          <span class="ds-vars">가구소득코드·가구주연령 + 주택점유형태코드·보유주택수코드·향후주택구입의향</span>
+        <div class="chip-var-section">
+          <div class="chip-var-label">소득만족도</div>
+          <div class="chip-row">
+            <span class="chip" data-key="income_sat" data-val="만족" onclick="toggleChip(this)">만족</span>
+            <span class="chip" data-key="income_sat" data-val="보통" onclick="toggleChip(this)">보통</span>
+            <span class="chip" data-key="income_sat" data-val="불만족" onclick="toggleChip(this)">불만족</span>
+          </div>
         </div>
-        <div class="filter-row">
-          <div class="filter-item">
-            <div class="f-label">주택점유형태 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
-            <select class="f-select" id="f-housing" onchange="renderCombo()">
-              <option value="">전체</option><option value="자가">자가</option><option value="전세">전세</option><option value="월세">월세</option>
-            </select>
+        <div class="chip-var-section">
+          <div class="chip-var-label">계층의식</div>
+          <div class="chip-row">
+            <span class="chip" data-key="class_id" data-val="상층" onclick="toggleChip(this)">상층</span>
+            <span class="chip" data-key="class_id" data-val="중층" onclick="toggleChip(this)">중층</span>
+            <span class="chip" data-key="class_id" data-val="하층" onclick="toggleChip(this)">하층</span>
           </div>
-          <div class="filter-item">
-            <div class="f-label">보유주택수 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
-            <select class="f-select" id="f-homes-owned" onchange="renderCombo()">
-              <option value="">전체</option><option value="무주택">무주택</option><option value="1채">1채</option><option value="2채이상">2채 이상</option>
-            </select>
-          </div>
-          <div class="filter-item">
-            <div class="f-label">향후구입의향 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
-            <select class="f-select" id="f-buy-intent" onchange="renderCombo()">
-              <option value="">전체</option><option value="있음">있음</option><option value="없음">없음</option>
-            </select>
+        </div>
+        <div class="chip-var-section">
+          <div class="chip-var-label">생활여건변화</div>
+          <div class="chip-row">
+            <span class="chip" data-key="life_cond" data-val="좋아짐" onclick="toggleChip(this)">좋아짐</span>
+            <span class="chip" data-key="life_cond" data-val="비슷" onclick="toggleChip(this)">비슷</span>
+            <span class="chip" data-key="life_cond" data-val="나빠짐" onclick="toggleChip(this)">나빠짐</span>
           </div>
         </div>
       </div>
 
-      <!-- 경제활동인구조사(2024) -->
-      <div class="ds-block">
-        <div class="ds-header">
-          <div class="ds-name">💼 경제활동인구조사 (2024)</div>
-          <span class="ds-badge" style="background:#dbeafe;color:#1e40af">공통</span>
-          <span class="ds-badge" style="background:#fef3c7;color:#92400e">고유</span>
-          <span class="ds-vars">성별코드·만연령 + 종사상지위코드·종사자규모코드·경제활동상태코드·구직활동유무</span>
+      <!-- 노동·직업 -->
+      <div class="chip-group">
+        <div class="chip-group-header">💼 노동·직업<button class="grp-reset" onclick="resetGroup(['job','firm_size','econ_status'])">초기화</button></div>
+        <div class="chip-var-section">
+          <div class="chip-var-label">종사상지위</div>
+          <div class="chip-row">
+            <span class="chip" data-key="job" data-val="임금(정규)" onclick="toggleChip(this)">임금(정규)</span>
+            <span class="chip" data-key="job" data-val="임금(비정규)" onclick="toggleChip(this)">임금(비정규)</span>
+            <span class="chip" data-key="job" data-val="자영업" onclick="toggleChip(this)">자영업</span>
+            <span class="chip" data-key="job" data-val="학생" onclick="toggleChip(this)">학생</span>
+            <span class="chip" data-key="job" data-val="주부·은퇴" onclick="toggleChip(this)">주부·은퇴</span>
+          </div>
         </div>
-        <div class="filter-row">
-          <div class="filter-item">
-            <div class="f-label">종사상지위 <span class="f-var-type" style="background:#dbeafe;color:#1e40af">공통</span></div>
-            <select class="f-select" id="f-job" onchange="renderCombo()">
-              <option value="">전체</option><option value="임금(정규)">임금근로자(정규)</option>
-              <option value="임금(비정규)">임금근로자(비정규)</option><option value="자영업">자영업</option>
-              <option value="학생">학생</option><option value="주부·은퇴">주부·은퇴</option>
-            </select>
+        <div class="chip-var-section">
+          <div class="chip-var-label">종사자규모</div>
+          <div class="chip-row">
+            <span class="chip" data-key="firm_size" data-val="1~9인" onclick="toggleChip(this)">소규모(1~9인)</span>
+            <span class="chip" data-key="firm_size" data-val="10~299인" onclick="toggleChip(this)">중규모(10~299인)</span>
+            <span class="chip" data-key="firm_size" data-val="300인이상" onclick="toggleChip(this)">대규모(300인+)</span>
           </div>
-          <div class="filter-item">
-            <div class="f-label">종사자규모 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
-            <select class="f-select" id="f-firm-size" onchange="renderCombo()">
-              <option value="">전체</option><option value="1~9인">소규모(1~9인)</option>
-              <option value="10~299인">중규모(10~299인)</option><option value="300인이상">대규모(300인이상)</option>
-            </select>
-          </div>
-          <div class="filter-item">
-            <div class="f-label">경제활동상태 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
-            <select class="f-select" id="f-econ-status" onchange="renderCombo()">
-              <option value="">전체</option><option value="취업자">취업자</option>
-              <option value="실업자">실업자</option><option value="비경제활동">비경제활동</option>
-            </select>
+        </div>
+        <div class="chip-var-section">
+          <div class="chip-var-label">경제활동상태</div>
+          <div class="chip-row">
+            <span class="chip" data-key="econ_status" data-val="취업자" onclick="toggleChip(this)">취업자</span>
+            <span class="chip" data-key="econ_status" data-val="실업자" onclick="toggleChip(this)">실업자</span>
+            <span class="chip" data-key="econ_status" data-val="비경제활동" onclick="toggleChip(this)">비경제활동</span>
           </div>
         </div>
       </div>
 
-      <!-- 인권의식실태조사(2024) -->
-      <div class="ds-block">
-        <div class="ds-header">
-          <div class="ds-name">⚖️ 인권의식실태조사 (2024)</div>
-          <span class="ds-badge" style="background:#dbeafe;color:#1e40af">공통</span>
-          <span class="ds-badge" style="background:#fef3c7;color:#92400e">고유</span>
-          <span class="ds-vars">연령대·성별·학력·직장에서지위·삶만족도 + 인권존중정도·노동권·평등권·안전권</span>
+      <!-- 주거·자산 -->
+      <div class="chip-group">
+        <div class="chip-group-header">🏠 주거·자산<button class="grp-reset" onclick="resetGroup(['housing','homes_owned','buy_intent'])">초기화</button></div>
+        <div class="chip-var-section">
+          <div class="chip-var-label">주택점유형태</div>
+          <div class="chip-row">
+            <span class="chip" data-key="housing" data-val="자가" onclick="toggleChip(this)">자가</span>
+            <span class="chip" data-key="housing" data-val="전세" onclick="toggleChip(this)">전세</span>
+            <span class="chip" data-key="housing" data-val="월세" onclick="toggleChip(this)">월세</span>
+          </div>
         </div>
-        <div class="filter-row">
-          <div class="filter-item">
-            <div class="f-label">삶 만족도 <span class="f-var-type" style="background:#dbeafe;color:#1e40af">공통</span></div>
-            <select class="f-select" id="f-life-sat" onchange="renderCombo()">
-              <option value="">전체</option><option value="만족">만족</option><option value="보통">보통</option><option value="불만족">불만족</option>
-            </select>
+        <div class="chip-var-section">
+          <div class="chip-var-label">보유주택수</div>
+          <div class="chip-row">
+            <span class="chip" data-key="homes_owned" data-val="무주택" onclick="toggleChip(this)">무주택</span>
+            <span class="chip" data-key="homes_owned" data-val="1채" onclick="toggleChip(this)">1채</span>
+            <span class="chip" data-key="homes_owned" data-val="2채이상" onclick="toggleChip(this)">2채이상</span>
           </div>
-          <div class="filter-item">
-            <div class="f-label">노동권 인식 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
-            <select class="f-select" id="f-labor-rights" onchange="renderCombo()">
-              <option value="">전체</option><option value="매우중요">매우 중요</option>
-              <option value="중요">중요</option><option value="불중요">불중요</option>
-            </select>
-          </div>
-          <div class="filter-item">
-            <div class="f-label">평등권 인식 <span class="f-var-type" style="background:#fef3c7;color:#92400e">고유</span></div>
-            <select class="f-select" id="f-equal-rights" onchange="renderCombo()">
-              <option value="">전체</option><option value="매우중요">매우 중요</option>
-              <option value="중요">중요</option><option value="불중요">불중요</option>
-            </select>
-          </div>
-          <div class="filter-item" style="display:flex;align-items:flex-end">
-            <button onclick="resetFilters()" style="width:100%;padding:6px 10px;background:#f1f5f9;border:1.5px solid var(--border);border-radius:6px;font-size:11px;font-weight:700;color:var(--muted);cursor:pointer">필터 초기화</button>
+        </div>
+        <div class="chip-var-section">
+          <div class="chip-var-label">향후구입의향</div>
+          <div class="chip-row">
+            <span class="chip" data-key="buy_intent" data-val="있음" onclick="toggleChip(this)">있음</span>
+            <span class="chip" data-key="buy_intent" data-val="없음" onclick="toggleChip(this)">없음</span>
           </div>
         </div>
       </div>
+
+      <!-- 의식·태도 -->
+      <div class="chip-group">
+        <div class="chip-group-header">🧠 의식·태도<button class="grp-reset" onclick="resetGroup(['stress','social_safety','achievement','life_sat','labor_rights','equal_rights'])">초기화</button></div>
+        <div class="chip-group-inner-2col">
+          <div class="chip-var-section">
+            <div class="chip-var-label">스트레스</div>
+            <div class="chip-row">
+              <span class="chip" data-key="stress" data-val="낮음" onclick="toggleChip(this)">낮음</span>
+              <span class="chip" data-key="stress" data-val="보통" onclick="toggleChip(this)">보통</span>
+              <span class="chip" data-key="stress" data-val="높음" onclick="toggleChip(this)">높음</span>
+            </div>
+          </div>
+          <div class="chip-var-section">
+            <div class="chip-var-label">사회안전인식도</div>
+            <div class="chip-row">
+              <span class="chip" data-key="social_safety" data-val="안전" onclick="toggleChip(this)">안전</span>
+              <span class="chip" data-key="social_safety" data-val="보통" onclick="toggleChip(this)">보통</span>
+              <span class="chip" data-key="social_safety" data-val="불안" onclick="toggleChip(this)">불안</span>
+            </div>
+          </div>
+          <div class="chip-var-section">
+            <div class="chip-var-label">성취만족도</div>
+            <div class="chip-row">
+              <span class="chip" data-key="achievement" data-val="만족" onclick="toggleChip(this)">만족</span>
+              <span class="chip" data-key="achievement" data-val="보통" onclick="toggleChip(this)">보통</span>
+              <span class="chip" data-key="achievement" data-val="불만족" onclick="toggleChip(this)">불만족</span>
+            </div>
+          </div>
+          <div class="chip-var-section">
+            <div class="chip-var-label">삶만족도</div>
+            <div class="chip-row">
+              <span class="chip" data-key="life_sat" data-val="만족" onclick="toggleChip(this)">만족</span>
+              <span class="chip" data-key="life_sat" data-val="보통" onclick="toggleChip(this)">보통</span>
+              <span class="chip" data-key="life_sat" data-val="불만족" onclick="toggleChip(this)">불만족</span>
+            </div>
+          </div>
+          <div class="chip-var-section">
+            <div class="chip-var-label">노동권인식</div>
+            <div class="chip-row">
+              <span class="chip" data-key="labor_rights" data-val="매우중요" onclick="toggleChip(this)">매우중요</span>
+              <span class="chip" data-key="labor_rights" data-val="중요" onclick="toggleChip(this)">중요</span>
+              <span class="chip" data-key="labor_rights" data-val="불중요" onclick="toggleChip(this)">불중요</span>
+            </div>
+          </div>
+          <div class="chip-var-section">
+            <div class="chip-var-label">평등권인식</div>
+            <div class="chip-row">
+              <span class="chip" data-key="equal_rights" data-val="매우중요" onclick="toggleChip(this)">매우중요</span>
+              <span class="chip" data-key="equal_rights" data-val="중요" onclick="toggleChip(this)">중요</span>
+              <span class="chip" data-key="equal_rights" data-val="불중요" onclick="toggleChip(this)">불중요</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div><!-- /filter-groups-grid -->
     </div><!-- /filter-card -->
 
     <!-- 조합 결과 -->
@@ -645,67 +657,113 @@ const PERSONAS = [
     tags:['30–40대 여성','임금근로자','교육·보육 관심','노동권 중시','평등권 중시'],
     base:{d:66,r:30,e:4},
     bk:{ gender:{'여성':{d:66,r:30}}, age:{'30대':{d:70,r:24},'40대':{d:62,r:34}}, housing:{'자가':{d:58,r:38},'전세':{d:72,r:24}} }
+  },
+  {
+    id:'small-biz', icon:'🛒', type:'TYPE F', color:'#d97706', bg:'#fffbeb',
+    name:'소상공인 생계형', pop:'유권자의 약 8%',
+    desc:'40~50대 자영업자, 소규모(1~9인) 사업장 운영. 코로나 이후 매출 감소·임대료 부담·최저임금 인상 압박이 겹치며 생존을 위협받고 있습니다. 세금 감면·상권 지원 등 실질적 경영 지원을 원합니다.',
+    tags:['40–50대','자영업','소규모사업장','소득불만족','생활여건↓','스트레스↑'],
+    base:{d:40,r:52,e:8},
+    bk:{ gender:{'남성':{d:34,r:58},'여성':{d:46,r:46}}, age:{'40대':{d:44,r:48},'50대':{d:36,r:56}}, job:{'자영업':{d:40,r:52}} }
+  },
+  {
+    id:'young-male', icon:'👨‍💼', type:'TYPE G', color:'#059669', bg:'#ecfdf5',
+    name:'2030 남성 현실주의형', pop:'유권자의 약 7%',
+    desc:'20~30대 남성, 취업준비생·정규직 초기. 능력주의와 공정 경쟁을 최우선 가치로 여기며 성별 역차별 의식이 강합니다. 이념보다 취업·주거 등 당장의 경제 현실을 중심으로 투표를 결정합니다.',
+    tags:['20–30대 남성','취준생·정규직','능력주의','공정 경쟁 중시','경제 현실 우선'],
+    base:{d:38,r:54,e:8},
+    bk:{ gender:{'남성':{d:38,r:54}}, age:{'20대':{d:42,r:50},'30대':{d:34,r:58}}, edu:{'대학교':{d:38,r:54},'대학원이상':{d:46,r:46}} }
+  },
+  {
+    id:'elderly-poor', icon:'👴', type:'TYPE H', color:'#6b7280', bg:'#f9fafb',
+    name:'고령 빈곤 취약형', pop:'유권자의 약 6%',
+    desc:'60대 이상, 저소득, 월세·무주택 거주. 불충분한 연금으로 생활 불안이 크고 의료·돌봄 지원이 절실합니다. 보수 성향과 복지 필요성이 충돌하는 정치적 부동층으로, 지역별 성향 차이가 두드러집니다.',
+    tags:['60대 이상','저소득','무주택·월세','삶 불만족','복지 수요↑','사회안전 불안'],
+    base:{d:46,r:46,e:8},
+    bk:{ gender:{'남성':{d:40,r:52},'여성':{d:52,r:40}}, age:{'60대+':{d:46,r:46}}, housing:{'무주택':{d:54,r:38},'월세':{d:58,r:34}} }
+  },
+  {
+    id:'housing-demand', icon:'🏡', type:'TYPE I', color:'#0284c7', bg:'#f0f9ff',
+    name:'3040 내집마련 수요층', pop:'유권자의 약 9%',
+    desc:'30~40대, 무주택·전세 거주, 주택 구입 의향이 강한 중간 소득층. 부동산 정책과 담보대출 규제에 극도로 민감합니다. 집값 안정과 실수요자 보호 정책이 투표 결정의 핵심 기준입니다.',
+    tags:['30–40대','무주택·전세','구입의향↑','소득 400만원+','대출 규제 민감','집값 안정 원함'],
+    base:{d:60,r:36,e:4},
+    bk:{ gender:{'남성':{d:54,r:42},'여성':{d:66,r:30}}, age:{'30대':{d:64,r:32},'40대':{d:56,r:40}}, housing:{'전세':{d:64,r:32},'무주택':{d:68,r:28}} }
   }
 ];
 
 // ─── 유의미한 프리셋 조합 ───
-// vars의 key는 REGIONS[].bk의 키, src는 출처 데이터셋
+// vars의 key는 REGIONS[].bk의 키
 const PRESET_COMBOS = [
   {
-    icon:'🧑‍💻', name:'청년 비정규직 스트레스층',
-    src:'사회조사(2024) × 경제활동인구조사',
-    desc:'20대 · 비정규 임금근로자 · 스트레스 높음',
-    tags:['20대','비정규직','스트레스↑','월세'],
-    vars:[{key:'age',val:'20대'},{key:'job',val:'임금(비정규)'},{key:'stress',val:'높음'},{key:'housing',val:'월세'}]
+    icon:'🏠', name:'청년 무주택·월세 주거불안',
+    src:'주택금융 × 사회조사(2024)',
+    desc:'20대 · 무주택·월세 · 사회안전인식 불안',
+    tags:['20대','무주택','월세','사회불안'],
+    vars:[{key:'age',val:'20대'},{key:'homes_owned',val:'무주택'},{key:'housing',val:'월세'},{key:'social_safety',val:'불안'}]
   },
   {
-    icon:'👩‍🎓', name:'2030 고학력 노동권 관심',
-    src:'사회조사(2024) × 인권의식실태조사',
-    desc:'30대 · 대학원 이상 · 노동권 매우중요',
-    tags:['30대','대학원이상','노동권↑','평등권↑'],
-    vars:[{key:'age',val:'30대'},{key:'edu',val:'대학원이상'},{key:'labor_rights',val:'매우중요'}]
+    icon:'💼', name:'청년 실업·취업 포기층',
+    src:'경제활동인구조사 × 사회조사(2024)',
+    desc:'20~30대 · 실업자·비경제활동 · 스트레스 높음',
+    tags:['20대','실업자','비경제활동','스트레스↑'],
+    vars:[{key:'age',val:'20대'},{key:'econ_status',val:'실업자'},{key:'stress',val:'높음'}]
   },
   {
-    icon:'🏠', name:'저소득 무주택 하층의식',
-    src:'사회조사(2023) × 주택금융(2024)',
-    desc:'200만원 미만 · 무주택 · 계층의식 하층',
-    tags:['200만원미만','무주택','하층의식','생활여건↓'],
-    vars:[{key:'income',val:'200만원미만'},{key:'homes_owned',val:'무주택'},{key:'class_id',val:'하층'}]
+    icon:'🧑‍🔧', name:'비정규직 소규모사업장 불안층',
+    src:'경제활동인구조사 × 사회조사(2023)',
+    desc:'비정규 임금근로자 · 1~9인 사업장 · 생활여건 악화',
+    tags:['비정규직','소규모(1~9인)','생활여건↓','하층의식'],
+    vars:[{key:'job',val:'임금(비정규)'},{key:'firm_size',val:'1~9인'},{key:'life_cond',val:'나빠짐'}]
   },
   {
-    icon:'🏢', name:'고소득 다주택 상층의식',
-    src:'사회조사(2023) × 주택금융(2024)',
-    desc:'월소득 600만원+ · 2채 이상 · 계층의식 상층',
-    tags:['600만원+','2채이상','상층의식','성취만족↑'],
-    vars:[{key:'income',val:'600만원이상'},{key:'homes_owned',val:'2채이상'},{key:'class_id',val:'상층'}]
+    icon:'🏪', name:'자영업자 소득 불만층',
+    src:'경제활동인구조사 × 사회조사(2023)',
+    desc:'자영업 · 소규모(1~9인) · 소득만족도 불만족',
+    tags:['자영업','소규모(1~9인)','소득불만족','생활여건↓'],
+    vars:[{key:'job',val:'자영업'},{key:'firm_size',val:'1~9인'},{key:'income_sat',val:'불만족'}]
   },
   {
-    icon:'⚖️', name:'40대 중산층 소득 불만',
-    src:'사회조사(2023) × 경제활동인구조사',
-    desc:'40대 · 정규직 · 소득만족도 불만족',
-    tags:['40대','정규직','소득불만족','중층의식'],
-    vars:[{key:'age',val:'40대'},{key:'job',val:'임금(정규)'},{key:'income_sat',val:'불만족'}]
+    icon:'📉', name:'중산층 붕괴 · 계층 하락감',
+    src:'사회조사(2023)',
+    desc:'40대 · 중층의식 · 소득 불만족 · 생활여건 나빠짐',
+    tags:['40대','중층의식','소득불만족','생활여건↓'],
+    vars:[{key:'age',val:'40대'},{key:'class_id',val:'중층'},{key:'income_sat',val:'불만족'},{key:'life_cond',val:'나빠짐'}]
   },
   {
-    icon:'🏪', name:'중장년 자영업 소규모사업장',
-    src:'경제활동인구조사 × 사회조사',
-    desc:'50대 · 자영업 · 종사자규모 1~9인',
-    tags:['50대','자영업','소규모(1~9인)','자가'],
-    vars:[{key:'age',val:'50대'},{key:'job',val:'자영업'},{key:'firm_size',val:'1~9인'}]
+    icon:'👩‍⚖️', name:'여성 평등권·노동권 관심층',
+    src:'인권의식실태조사(2024)',
+    desc:'여성 · 평등권 매우중요 · 노동권 매우중요',
+    tags:['여성','평등권↑','노동권↑','사회변화 지향'],
+    vars:[{key:'gender',val:'여성'},{key:'equal_rights',val:'매우중요'},{key:'labor_rights',val:'매우중요'}]
   },
   {
-    icon:'😟', name:'사회불안 생활여건 악화층',
+    icon:'😰', name:'저소득 사회적 취약층',
     src:'사회조사(2024) × 사회조사(2023)',
-    desc:'사회안전인식 불안 · 생활여건 나빠짐 · 하층의식',
-    tags:['사회불안','생활여건↓','하층의식','삶불만족'],
-    vars:[{key:'social_safety',val:'불안'},{key:'life_cond',val:'나빠짐'},{key:'class_id',val:'하층'}]
+    desc:'저소득 · 사회안전 불안 · 생활여건 악화 · 하층의식',
+    tags:['200만원미만','사회불안','생활여건↓','하층의식'],
+    vars:[{key:'income',val:'200만원미만'},{key:'social_safety',val:'불안'},{key:'life_cond',val:'나빠짐'},{key:'class_id',val:'하층'}]
   },
   {
-    icon:'🏦', name:'대기업 자가보유 삶만족층',
-    src:'경제활동인구조사 × 주택금융 × 인권의식',
-    desc:'300인이상 사업장 · 1채 보유 · 삶 만족',
-    tags:['대규모(300인+)','1채보유','삶만족','취업자'],
-    vars:[{key:'firm_size',val:'300인이상'},{key:'homes_owned',val:'1채'},{key:'life_sat',val:'만족'}]
+    icon:'🎓', name:'고학력 진보 청년층',
+    src:'사회조사(2024) × 인권의식실태조사',
+    desc:'30대 · 대학원 이상 · 전세 · 노동권 매우중요',
+    tags:['30대','대학원이상','전세','노동권↑'],
+    vars:[{key:'age',val:'30대'},{key:'edu',val:'대학원이상'},{key:'housing',val:'전세'},{key:'labor_rights',val:'매우중요'}]
+  },
+  {
+    icon:'🏢', name:'대기업·고소득 자산보유층',
+    src:'경제활동인구조사 × 주택금융 × 사회조사',
+    desc:'300인이상 사업장 · 자가보유 · 소득 600만원+',
+    tags:['300인이상','자가','600만원+','성취만족↑'],
+    vars:[{key:'firm_size',val:'300인이상'},{key:'housing',val:'자가'},{key:'income',val:'600만원이상'}]
+  },
+  {
+    icon:'👴', name:'고령층 자산보유 전통보수',
+    src:'사회조사(2023) × 주택금융 × 인권의식',
+    desc:'60대+ · 자가보유 · 삶 만족 · 사회안전 안전',
+    tags:['60대+','자가','삶만족','사회안전↑'],
+    vars:[{key:'age',val:'60대+'},{key:'housing',val:'자가'},{key:'life_sat',val:'만족'},{key:'social_safety',val:'안전'}]
   }
 ];
 
@@ -715,6 +773,7 @@ const PRESET_COMBOS = [
 let CUR = 'seoul';
 let SEL_PERSONA = 0;
 let ACTIVE_PRESET = -1;
+let CHIP_STATE = {};
 
 const ALL_RIDS = ['seoul','gyeonggi','busan','daegu'];
 const R_SHORT  = {seoul:'서울', gyeonggi:'경기', busan:'부산', daegu:'대구'};
@@ -765,80 +824,9 @@ function bkRow(label, d, r) {
 }
 
 // ═══════════════════════════════
-// 전체 비교 — 기본 분석
-// ═══════════════════════════════
-function renderBasicAll() {
-  // 4 win cards
-  const winHtml = ALL_RIDS.map(rid => {
-    const R = REGIONS[rid];
-    const lead = Math.abs(R.dem - R.rep).toFixed(1);
-    const leadClr = R.dem > R.rep ? 'var(--dem)' : 'var(--rep)';
-    const leadTxt = R.dem > R.rep ? `민주 +${lead}%p` : `국힘 +${lead}%p`;
-    return `
-      <div class="all-win-card">
-        <div class="all-win-region">
-          <span style="width:6px;height:6px;border-radius:50%;background:${R_RTG_COLOR[rid]};display:inline-block"></span>
-          ${R.name}
-        </div>
-        <div class="all-cand-row">
-          <div class="all-cand-box" style="border-color:var(--dem);background:#eff6ff">
-            <div class="all-cand-name" style="color:var(--dem)">${R.cand.dem.name}</div>
-            <div class="all-cand-pct" style="color:var(--dem)">${R.dem}%</div>
-          </div>
-          <div class="all-cand-box" style="border-color:var(--rep);background:#fff5f5">
-            <div class="all-cand-name" style="color:var(--rep)">${R.cand.rep.name}</div>
-            <div class="all-cand-pct" style="color:var(--rep)">${R.rep}%</div>
-          </div>
-        </div>
-        <div style="text-align:center;font-size:11px;font-weight:800;color:${leadClr};background:${leadClr}18;padding:4px 8px;border-radius:5px">${leadTxt}</div>
-        <div class="all-lead-bar" style="margin-top:8px">
-          <div style="width:${R.dem}%;background:var(--dem)"></div>
-          <div style="width:${R.rep}%;background:var(--rep)"></div>
-        </div>
-      </div>`;
-  }).join('');
-
-  // variable comparison cards (공통변수 6개)
-  const VARS = [
-    {key:'gender',  label:'성별'},
-    {key:'age',     label:'연령대'},
-    {key:'income',  label:'가구소득'},
-    {key:'housing', label:'주거형태'},
-    {key:'edu',     label:'학력'},
-    {key:'job',     label:'종사상지위'},
-  ];
-
-  const bkHtml = VARS.map(v => {
-    const vals = Object.keys(REGIONS.seoul.bk[v.key]);
-    const rowsHtml = vals.map(val => {
-      const bars = ALL_RIDS.map(rid => {
-        const bd = REGIONS[rid].bk[v.key][val];
-        if (!bd) return '';
-        return `
-          <div class="compare-rgn-row">
-            <div class="compare-rgn-name">${R_SHORT[rid]}</div>
-            <div class="compare-rgn-bar">
-              <div class="compare-rgn-bar-dem" style="width:${bd.d}%"></div>
-              <div class="compare-rgn-bar-rep" style="width:${bd.r}%"></div>
-            </div>
-            <div class="compare-rgn-pct"><span style="color:var(--dem)">${bd.d}%</span> · <span style="color:var(--rep)">${bd.r}%</span></div>
-          </div>`;
-      }).join('');
-      return `<div class="compare-val-group"><div class="compare-val-label">${val}</div>${bars}</div>`;
-    }).join('');
-    return `<div class="compare-card"><div class="card-title">${v.label} 지역별 비교</div>${rowsHtml}</div>`;
-  }).join('');
-
-  document.getElementById('win-grid').className = '';
-  document.getElementById('win-grid').innerHTML = `<div class="all-win-row">${winHtml}</div>`;
-  document.getElementById('bk-container').innerHTML = `<div class="compare-bk-grid">${bkHtml}</div>`;
-}
-
-// ═══════════════════════════════
 // 기본 분석
 // ═══════════════════════════════
 function renderBasic() {
-  if (CUR === 'all') { renderBasicAll(); return; }
   const R = REGIONS[CUR];
   const lead = Math.abs(R.dem - R.rep).toFixed(1);
   const leadColor = R.dem > R.rep ? 'var(--dem)' : 'var(--rep)';
@@ -884,93 +872,8 @@ function renderBasic() {
 }
 
 // ═══════════════════════════════
-// 전체 비교 — 조합 결과 (4개 지역)
-// ═══════════════════════════════
-function renderComboAll() {
-  // 필터 읽기 (기존 F2K 사용)
-  const active = [];
-  for (const [fid, key] of Object.entries(F2K)) {
-    const val = document.getElementById(fid).value;
-    if (val) active.push({key, val});
-  }
-
-  const cardsHtml = ALL_RIDS.map(rid => {
-    const R = REGIONS[rid];
-    let d, r;
-    if (!active.length) { d = R.dem; r = R.rep; }
-    else {
-      let dSum = 0, rSum = 0, cnt = 0;
-      for (const {key, val} of active) {
-        const bk = R.bk[key];
-        if (bk && bk[val]) { dSum += bk[val].d; rSum += bk[val].r; cnt++; }
-      }
-      d = cnt ? +(dSum/cnt).toFixed(1) : R.dem;
-      r = cnt ? +(rSum/cnt).toFixed(1) : R.rep;
-    }
-    const wClr = d > r ? 'var(--dem)' : 'var(--rep)';
-    const lead = Math.abs(d-r).toFixed(1);
-    const winner = d > r ? '민주 우세' : '국힘 우세';
-    return `
-      <div class="all-combo-region-card">
-        <div class="all-combo-region-label">
-          <span style="width:7px;height:7px;border-radius:50%;background:${R_RTG_COLOR[rid]};display:inline-block"></span>
-          ${R.name}
-          <span style="font-size:10px;color:${wClr};font-weight:800;margin-left:auto">${winner} +${lead}%p</span>
-        </div>
-        <div style="display:flex;gap:16px;margin-bottom:10px">
-          <div style="text-align:center;flex:1"><div style="font-size:28px;font-weight:800;color:var(--dem)">${d}%</div><div style="font-size:11px;color:var(--muted)">민주당</div></div>
-          <div style="text-align:center;flex:1"><div style="font-size:28px;font-weight:800;color:var(--rep)">${r}%</div><div style="font-size:11px;color:var(--muted)">국민의힘</div></div>
-        </div>
-        <div style="height:18px;border-radius:5px;overflow:hidden;display:flex">
-          <div style="width:${d}%;background:var(--dem);display:flex;align-items:center;padding:0 6px;color:#fff;font-size:10px;font-weight:800">${d>20?d+'%':''}</div>
-          <div style="flex:1;background:var(--rep);display:flex;align-items:center;justify-content:flex-end;padding:0 6px;color:#fff;font-size:10px;font-weight:800">${r>20?r+'%':''}</div>
-        </div>
-      </div>`;
-  }).join('');
-  document.getElementById('combo-result').innerHTML = `<div class="all-combo-result-grid">${cardsHtml}</div>`;
-}
-
-function renderPresetCombosAll() {
-  document.getElementById('preset-grid').innerHTML = PRESET_COMBOS.map((pc, i) => {
-    const isActive = i === ACTIVE_PRESET;
-    const barsHtml = ALL_RIDS.map(rid => {
-      const {d, r} = calcPreset(REGIONS[rid], pc.vars);
-      const wClr = d > r ? 'var(--dem)' : 'var(--rep)';
-      return `
-        <div class="all-preset-bar-row">
-          <div class="all-preset-rgn">${R_SHORT[rid]}</div>
-          <div class="all-preset-track">
-            <div class="all-preset-dem" style="width:${d}%"></div>
-            <div class="all-preset-rep" style="width:${r}%"></div>
-          </div>
-          <div class="all-preset-nums"><span style="color:var(--dem)">${d}%</span>·<span style="color:var(--rep)">${r}%</span></div>
-        </div>`;
-    }).join('');
-    return `
-      <div class="preset-card${isActive?' active-preset':''}" onclick="applyPreset(${i})">
-        <div class="preset-head">
-          <div class="preset-emoji">${pc.icon}</div>
-          <div><div class="preset-name">${pc.name}</div><div class="preset-src">${pc.src}</div></div>
-        </div>
-        <div class="preset-tags">${pc.tags.map(t=>`<span class="preset-tag">${t}</span>`).join('')}</div>
-        ${barsHtml}
-      </div>`;
-  }).join('');
-}
-
-// ═══════════════════════════════
 // 조합 분석
 // ═══════════════════════════════
-// filter id → bk key 매핑
-const F2K = {
-  'f-gender':'gender','f-age':'age','f-edu':'edu',
-  'f-stress':'stress','f-social-safety':'social_safety','f-achievement':'achievement',
-  'f-income':'income','f-class-id':'class_id','f-income-sat':'income_sat','f-life-cond':'life_cond',
-  'f-housing':'housing','f-homes-owned':'homes_owned','f-buy-intent':'buy_intent',
-  'f-job':'job','f-firm-size':'firm_size','f-econ-status':'econ_status',
-  'f-life-sat':'life_sat','f-labor-rights':'labor_rights','f-equal-rights':'equal_rights'
-};
-
 const CAT_LABEL = {
   gender:'성별', age:'연령', edu:'학력',
   stress:'스트레스', social_safety:'사회안전', achievement:'성취만족',
@@ -980,13 +883,42 @@ const CAT_LABEL = {
   life_sat:'삶만족도', labor_rights:'노동권', equal_rights:'평등권'
 };
 
+function toggleChip(el) {
+  const key = el.dataset.key;
+  const val = el.dataset.val;
+  document.querySelectorAll(`.chip[data-key="${key}"]`).forEach(c => c.classList.remove('active'));
+  if (CHIP_STATE[key] === val) {
+    delete CHIP_STATE[key];
+  } else {
+    CHIP_STATE[key] = val;
+    el.classList.add('active');
+  }
+  ACTIVE_PRESET = -1;
+  renderCombo();
+  renderPresetCombos();
+}
+
+function removeChip(key) {
+  delete CHIP_STATE[key];
+  document.querySelectorAll(`.chip[data-key="${key}"]`).forEach(c => c.classList.remove('active'));
+  ACTIVE_PRESET = -1;
+  renderCombo();
+  renderPresetCombos();
+}
+
+function resetGroup(keys) {
+  keys.forEach(key => {
+    delete CHIP_STATE[key];
+    document.querySelectorAll(`.chip[data-key="${key}"]`).forEach(c => c.classList.remove('active'));
+  });
+  ACTIVE_PRESET = -1;
+  renderCombo();
+  renderPresetCombos();
+}
+
 function getComboVal() {
   const R = REGIONS[CUR];
-  const active = [];
-  for (const [fid, key] of Object.entries(F2K)) {
-    const val = document.getElementById(fid).value;
-    if (val) active.push({key, val});
-  }
+  const active = Object.entries(CHIP_STATE).map(([k,v]) => ({key:k, val:v}));
   if (!active.length) return {d:R.dem, r:R.rep, e:R.etc, labels:['전체 유권자'], n:'전체'};
 
   let dSum = 0, rSum = 0, cnt = 0;
@@ -1003,17 +935,19 @@ function getComboVal() {
 }
 
 function renderCombo() {
-  if (CUR === 'all') { renderComboAll(); return; }
   const {d, r, e, labels, n} = getComboVal();
   const winner = d > r ? '민주당 우세' : '국힘 우세';
   const wClr   = d > r ? 'var(--dem)' : 'var(--rep)';
   const lead   = Math.abs(d-r).toFixed(1);
 
+  const chipRow = Object.entries(CHIP_STATE).map(([k,v])=>
+    `<span class="result-chip"><span class="result-chip-cat">${CAT_LABEL[k]||k}</span><span>${v}</span><span class="result-chip-x" onclick="removeChip('${k}')" title="제거">×</span></span>`
+  ).join('');
   document.getElementById('combo-result').innerHTML = `
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:18px;flex-wrap:wrap">
-      <span style="font-size:12px;color:var(--muted);font-weight:600">선택 조합</span>
-      ${labels.map(l=>`<span style="background:#f1f5f9;color:#1e293b;font-size:12px;font-weight:700;padding:3px 10px;border-radius:6px">${l}</span>`).join('<span style="color:#cbd5e1">+</span>')}
-      <span style="font-size:11px;color:var(--muted);margin-left:4px">(${n})</span>
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:18px;flex-wrap:wrap">
+      <span style="font-size:12px;color:var(--muted);font-weight:600;margin-right:2px">선택 조합</span>
+      ${chipRow || '<span style="font-size:12px;color:var(--muted)">전체 유권자</span>'}
+      <span style="font-size:11px;color:var(--muted)">(${n})</span>
     </div>
     <div class="combo-pct-row">
       <div style="text-align:center">
@@ -1037,7 +971,6 @@ function renderCombo() {
 }
 
 function renderTopCombos() {
-  if (CUR === 'all') { document.getElementById('tc-dem').innerHTML=''; document.getElementById('tc-rep').innerHTML='<div style="font-size:12px;color:var(--muted);padding:8px 0">지역 탭을 선택하면 상위 집단 순위가 표시됩니다.</div>'; return; }
   const R = REGIONS[CUR];
   const all = [];
   for (const [cat, data] of Object.entries(R.bk)) {
@@ -1074,7 +1007,6 @@ function calcPreset(R, vars) {
 }
 
 function renderPresetCombos() {
-  if (CUR === 'all') { renderPresetCombosAll(); return; }
   const R = REGIONS[CUR];
   document.getElementById('preset-grid').innerHTML = PRESET_COMBOS.map((pc, i) => {
     const {d, r} = calcPreset(R, pc.vars);
@@ -1108,14 +1040,13 @@ function renderPresetCombos() {
 }
 
 // 프리셋 클릭 → 필터 적용
-const K2F = Object.fromEntries(Object.entries(F2K).map(([f,k])=>[k,f]));
-
 function applyPreset(i) {
   ACTIVE_PRESET = i;
-  Object.keys(F2K).forEach(fid => { document.getElementById(fid).value = ''; });
+  CHIP_STATE = {};
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
   for (const {key, val} of PRESET_COMBOS[i].vars) {
-    const el = document.getElementById(K2F[key]);
-    if (el) el.value = val;
+    CHIP_STATE[key] = val;
+    document.querySelector(`.chip[data-key="${key}"][data-val="${val}"]`)?.classList.add('active');
   }
   renderCombo();
   renderPresetCombos();
@@ -1124,57 +1055,16 @@ function applyPreset(i) {
 
 function resetFilters() {
   ACTIVE_PRESET = -1;
-  Object.keys(F2K).forEach(fid => { document.getElementById(fid).value = ''; });
+  CHIP_STATE = {};
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
   renderCombo();
   renderPresetCombos();
-}
-
-// ═══════════════════════════════
-// 전체 비교 — 페르소나
-// ═══════════════════════════════
-function renderPersonaAll() {
-  const introHtml = `<div style="font-size:13px;color:var(--muted);margin-bottom:16px">5가지 페르소나 유형별로 4개 지역의 지지율을 비교합니다. 지역 보정 공식 적용.</div>`;
-
-  const tableHtml = PERSONAS.map(p => {
-    const rowsHtml = ALL_RIDS.map(rid => {
-      const R = REGIONS[rid];
-      const adj = (R.dem - 50) * 0.35;
-      const d = Math.min(94, Math.max(6, p.base.d + adj)).toFixed(1);
-      const r = Math.min(94, Math.max(6, p.base.r - adj)).toFixed(1);
-      const wClr = +d > +r ? 'var(--dem)' : 'var(--rep)';
-      return `
-        <div class="all-persona-rgn-row">
-          <div class="all-persona-rgn-label">${R_SHORT[rid]}</div>
-          <div class="all-persona-bar">
-            <div class="all-persona-bar-dem" style="width:${d}%"></div>
-            <div class="all-persona-bar-rep" style="width:${r}%"></div>
-          </div>
-          <div class="all-persona-pct"><span style="color:var(--dem)">${d}%</span>·<span style="color:var(--rep)">${r}%</span></div>
-        </div>`;
-    }).join('');
-    return `
-      <div class="all-persona-type-card">
-        <div class="all-persona-type-head">
-          <span style="font-size:22px">${p.icon}</span>
-          <div>
-            <div style="font-size:10px;font-weight:800;color:${p.color};text-transform:uppercase">${p.type}</div>
-            <div style="font-size:13px;font-weight:800">${p.name}</div>
-          </div>
-        </div>
-        ${rowsHtml}
-        <div style="font-size:10px;color:var(--muted);margin-top:8px">${p.pop}</div>
-      </div>`;
-  }).join('');
-
-  document.getElementById('persona-grid').innerHTML = introHtml + `<div class="all-persona-table">${tableHtml}</div>`;
-  document.getElementById('persona-detail').innerHTML = '';
 }
 
 // ═══════════════════════════════
 // 페르소나 유형
 // ═══════════════════════════════
 function renderPersona() {
-  if (CUR === 'all') { renderPersonaAll(); return; }
   const R = REGIONS[CUR];
   const adj = (R.dem - 50) * 0.35;
   document.getElementById('persona-grid').innerHTML = PERSONAS.map((p,i) => {
@@ -1211,7 +1101,7 @@ function renderPersonaDetail(i) {
   const adjR = Math.min(94, Math.max(6, p.base.r - adj)).toFixed(1);
   const adjE = Math.max(0, 100 - parseFloat(adjD) - parseFloat(adjR)).toFixed(1);
   const bkHtml = Object.entries(p.bk).map(([cat, data]) => {
-    const lbl = {gender:'성별',age:'연령대',housing:'주거형태',income:'소득',job:'직업'}[cat]||cat;
+    const lbl = {gender:'성별',age:'연령대',housing:'주거형태',income:'소득',job:'직업',edu:'학력',firm_size:'기업규모',econ_status:'경제활동',homes_owned:'보유주택',life_sat:'삶만족도'}[cat]||cat;
     return `<div class="card" style="padding:14px"><div class="card-title">${lbl}</div>${Object.entries(data).map(([l,{d,r}])=>bkRow(l,d,r)).join('')}</div>`;
   }).join('');
 
