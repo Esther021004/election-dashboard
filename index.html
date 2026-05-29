@@ -221,8 +221,8 @@ body{font-family:-apple-system,'Malgun Gothic','Apple SD Gothic Neo',sans-serif;
 </header>
 
 <div class="region-tabs">
-  <div class="rtab active" onclick="switchRegion(this,'gemini')">Gemini 2.5 Flash-Lite<span class="rtag" style="background:#fef3c722;color:#d97706">캘리브레이션</span></div>
-  <div class="rtab" onclick="switchRegion(this,'gpt')">GPT-4o mini<span class="rtag" style="background:#d1fae522;color:#059669">캘리브레이션</span></div>
+  <div class="rtab active" onclick="switchRegion(this,'gpt')">GPT-4o mini<span class="rtag" style="background:#d1fae522;color:#059669">캘리브레이션</span></div>
+  <div class="rtab" onclick="switchRegion(this,'gemini')">Gemini 2.5 Flash-Lite<span class="rtag" style="background:#fef3c722;color:#d97706">캘리브레이션</span></div>
   <div class="rtab" onclick="switchRegion(this,'gemma')">Gemma 3 27B<span class="rtag" style="background:#ede9fe22;color:#7c3aed">캘리브레이션</span></div>
 </div>
 
@@ -736,7 +736,7 @@ const PRESET_COMBOS = [
 // ═══════════════════════════════
 // STATE
 // ═══════════════════════════════
-let CUR = 'gemini';
+let CUR = 'gpt';
 let SEL_PERSONA = 0;
 let ACTIVE_PRESET = -1;
 let CHIP_STATE = {};
