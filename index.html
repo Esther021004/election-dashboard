@@ -489,20 +489,20 @@ body{font-family:-apple-system,'Malgun Gothic','Apple SD Gothic Neo',sans-serif;
 const REGIONS = {
   gemini: {
     name:'Gemini 2.5 Flash-Lite', short:'Gemini', rtg:'경합',
-    dem:42.3, rep:36.5, ref:3.5, etc:17.7,
+    dem:51.8, rep:44.7, ref:3.6, etc:0,
     cand:{
       dem:{name:'정원오', role:'더불어민주당'},
       rep:{name:'오세훈', role:'국민의힘'},
-      ref:{name:'', role:'합산'}
+      ref:{name:'', role:'기타 후보'}
     },
     bk:{
-      turnout:     {전체:53.2, 남성:52.3, 여성:53.8, '20대':44.3, '30대':44.1, '40대':52.4, '50대':52.1, '60대+':63.5},
-      gender:      {'남성':{d:44.2,r:35.4,ref:3.3},'여성':{d:40.7,r:37.5,ref:3.7}},
-      age:         {'20대':{d:58.7,r:4.1,ref:16.4},'30대':{d:81.3,r:5.5,ref:3.9},'40대':{d:32.2,r:47.8,ref:1.3},'50대':{d:31.3,r:49.0,ref:1.0},'60대+':{d:31.5,r:49.0,ref:0.9}},
-      income:      {'200만원미만':{d:38.2,r:41.0,ref:2.7},'200~400만원':{d:50.2,r:27.5,ref:5.4},'400~600만원':{d:46.2,r:34.0,ref:3.2},'600만원이상':{d:41.7,r:37.8,ref:2.8}},
-      edu:         {'중졸이하':{d:31.6,r:49.0,ref:0.9},'고졸':{d:37.2,r:41.0,ref:3.0},'대학교':{d:48.2,r:29.7,ref:4.9},'대학원이상':{d:45.8,r:36.2,ref:1.9}},
-      job:         {'상용근로':{d:51.3,r:26.2,ref:5.5},'임시·일용':{d:38.1,r:40.4,ref:2.8},'자영업':{d:34.8,r:44.8,ref:2.0},'비경제활동':{d:35.1,r:44.7,ref:1.8}},
-      housing:     {'자가':{d:35.3,r:45.2,ref:1.5},'전세':{d:57.1,r:18.1,ref:7.8},'월세':{d:53.7,r:29.4,ref:2.0}},
+      turnout:     {전체:99.9, 남성:99.9, 여성:99.9, '20대':99.7, '30대':100.0, '40대':99.8, '50대':100.0, '60대+':100.0},
+      gender:      {'남성':{d:49.8,r:46.4,ref:3.9},'여성':{d:53.7,r:43.0,ref:3.2}},
+      age:         {'20대':{d:84.0,r:0.0,ref:16.0},'30대':{d:98.7,r:0.0,ref:1.3},'40대':{d:68.1,r:24.7,ref:7.2},'50대':{d:15.0,r:85.0,ref:0.0},'60대+':{d:0.0,r:100.0,ref:0.0}},
+      income:      {'200만원미만':{d:45.0,r:51.5,ref:3.5},'200~400만원':{d:64.1,r:32.1,ref:3.9},'400~600만원':{d:63.6,r:34.2,ref:2.2},'600만원이상':{d:43.5,r:50.9,ref:5.6}},
+      edu:         {'중졸이하':{d:8.5,r:91.5,ref:0.0},'고졸':{d:27.5,r:65.8,ref:6.7},'대학교':{d:70.0,r:26.5,ref:3.5},'대학원이상':{d:61.5,r:36.5,ref:2.1}},
+      job:         {'상용근로':{d:70.4,r:24.4,ref:5.2},'임시·일용':{d:52.0,r:45.6,ref:2.5},'자영업':{d:12.1,r:86.7,ref:1.2},'비경제활동':{d:35.4,r:62.5,ref:2.1}},
+      housing:     {'자가':{d:24.5,r:73.8,ref:1.7},'전세':{d:84.3,r:9.8,ref:5.9},'월세':{d:77.4,r:21.0,ref:1.6}},
       stress:      {'높음':{d:42.4,r:35.6,ref:3.9},'보통':{d:42.1,r:37.1,ref:3.2},'낮음':{d:47.2,r:32.1,ref:4.0}},
       social_safety:{'안전':{d:44.6,r:34.4,ref:3.7},'보통':{d:41.5,r:36.9,ref:3.6},'불안':{d:41.0,r:38.5,ref:2.8}},
       achievement: {'만족':{d:41.2,r:38.0,ref:3.0},'보통':{d:43.2,r:35.7,ref:3.5},'불만족':{d:41.4,r:35.7,ref:4.4}},
@@ -520,20 +520,20 @@ const REGIONS = {
   },
   gpt: {
     name:'GPT-4o mini', short:'GPT', rtg:'경합',
-    dem:42.3, rep:36.6, ref:3.5, etc:17.6,
+    dem:51.2, rep:45.2, ref:3.6, etc:0,
     cand:{
       dem:{name:'정원오', role:'더불어민주당'},
       rep:{name:'오세훈', role:'국민의힘'},
-      ref:{name:'', role:'합산'}
+      ref:{name:'', role:'기타 후보'}
     },
     bk:{
-      turnout:     {전체:53.3, 남성:52.5, 여성:54.1, '20대':44.6, '30대':44.4, '40대':52.5, '50대':52.1, '60대+':63.8},
-      gender:      {'남성':{d:46.7,r:36.9,ref:1.0},'여성':{d:38.3,r:36.1,ref:5.7}},
-      age:         {'20대':{d:47.0,r:20.5,ref:12.4},'30대':{d:54.0,r:21.4,ref:7.0},'40대':{d:48.9,r:31.7,ref:3.1},'50대':{d:37.6,r:45.4,ref:0.6},'60대+':{d:35.6,r:45.8,ref:0.4}},
-      income:      {'200만원미만':{d:39.5,r:38.4,ref:3.2},'200~400만원':{d:46.9,r:30.8,ref:5.0},'400~600만원':{d:45.7,r:38.7,ref:1.8},'600만원이상':{d:43.7,r:42.4,ref:1.2}},
-      edu:         {'중졸이하':{d:36.8,r:44.0,ref:0.4},'고졸':{d:39.6,r:40.7,ref:1.0},'대학교':{d:45.9,r:30.7,ref:5.7},'대학원이상':{d:39.9,r:41.2,ref:4.5}},
-      job:         {'상용근로':{d:46.1,r:31.0,ref:5.6},'임시·일용':{d:38.0,r:39.3,ref:4.0},'자영업':{d:40.7,r:41.8,ref:0.6},'비경제활동':{d:39.1,r:40.8,ref:1.9}},
-      housing:     {'자가':{d:37.3,r:43.9,ref:1.3},'전세':{d:52.3,r:21.3,ref:8.1},'월세':{d:57.8,r:22.0,ref:4.4}},
+      turnout:     {전체:52.0, 남성:76.8, 여성:29.4, '20대':65.3, '30대':68.8, '40대':66.3, '50대':58.9, '60대+':24.5},
+      gender:      {'남성':{d:39.8,r:59.9,ref:0.2},'여성':{d:78.2,r:10.3,ref:11.5}},
+      age:         {'20대':{d:85.9,r:0.0,ref:14.1},'30대':{d:85.8,r:9.9,ref:4.4},'40대':{d:47.3,r:51.9,ref:0.9},'50대':{d:15.4,r:84.5,ref:0.1},'60대+':{d:5.5,r:94.5,ref:0.0}},
+      income:      {'200만원미만':{d:74.4,r:17.5,ref:8.1},'200~400만원':{d:60.9,r:35.2,ref:3.9},'400~600만원':{d:27.6,r:71.8,ref:0.5},'600만원이상':{d:25.0,r:74.9,ref:0.1}},
+      edu:         {'중졸이하':{d:100.0,r:0.0,ref:0.0},'고졸':{d:71.7,r:26.5,ref:1.9},'대학교':{d:59.2,r:36.3,ref:4.5},'대학원이상':{d:27.5,r:70.6,ref:1.9}},
+      job:         {'상용근로':{d:57.1,r:39.1,ref:3.8},'임시·일용':{d:36.2,r:55.7,ref:8.1},'자영업':{d:25.6,r:74.4,ref:0.0},'비경제활동':{d:43.6,r:52.9,ref:3.5}},
+      housing:     {'자가':{d:23.3,r:75.6,ref:1.1},'전세':{d:90.9,r:1.8,ref:7.2},'월세':{d:97.9,r:0.0,ref:2.1}},
       stress:      {'높음':{d:40.8,r:37.9,ref:3.0},'보통':{d:42.8,r:36.1,ref:3.8},'낮음':{d:48.5,r:32.0,ref:1.9}},
       social_safety:{'안전':{d:43.9,r:34.8,ref:4.1},'보통':{d:41.4,r:37.2,ref:3.5},'불안':{d:42.4,r:37.3,ref:2.7}},
       achievement: {'만족':{d:42.0,r:36.2,ref:4.3},'보통':{d:42.1,r:36.9,ref:3.1},'불만족':{d:43.4,r:35.9,ref:3.3}},
@@ -551,20 +551,20 @@ const REGIONS = {
   },
   gemma: {
     name:'Gemma 3 27B', short:'Gemma', rtg:'경합',
-    dem:42.3, rep:36.5, ref:3.5, etc:17.7,
+    dem:51.6, rep:46.9, ref:1.5, etc:0,
     cand:{
       dem:{name:'정원오', role:'더불어민주당'},
       rep:{name:'오세훈', role:'국민의힘'},
-      ref:{name:'', role:'합산'}
+      ref:{name:'', role:'기타 후보'}
     },
     bk:{
-      turnout:     {전체:53.3, 남성:52.1, 여성:54.3, '20대':44.3, '30대':44.7, '40대':52.5, '50대':51.9, '60대+':64.1},
-      gender:      {'남성':{d:41.1,r:37.7,ref:3.7},'여성':{d:43.3,r:35.3,ref:3.2}},
-      age:         {'20대':{d:43.2,r:31.9,ref:7.1},'30대':{d:45.8,r:32.8,ref:3.2},'40대':{d:41.5,r:37.6,ref:3.1},'50대':{d:39.6,r:40.6,ref:2.6},'60대+':{d:42.1,r:37.2,ref:2.8}},
-      income:      {'200만원미만':{d:42.5,r:36.6,ref:3.1},'200~400만원':{d:41.0,r:37.1,ref:4.2},'400~600만원':{d:43.6,r:35.0,ref:3.8},'600만원이상':{d:45.3,r:33.7,ref:3.2}},
-      edu:         {'중졸이하':{d:38.2,r:41.3,ref:2.5},'고졸':{d:37.7,r:41.1,ref:3.5},'대학교':{d:44.8,r:33.5,ref:3.6},'대학원이상':{d:49.8,r:28.6,ref:3.7}},
-      job:         {'상용근로':{d:42.3,r:36.1,ref:3.9},'임시·일용':{d:40.2,r:38.5,ref:3.4},'자영업':{d:38.4,r:40.9,ref:3.1},'비경제활동':{d:43.2,r:35.8,ref:3.0}},
-      housing:     {'자가':{d:41.2,r:38.3,ref:2.9},'전세':{d:44.8,r:32.7,ref:4.6},'월세':{d:38.8,r:40.4,ref:1.9}},
+      turnout:     {전체:52.3, 남성:68.4, 여성:37.5, '20대':44.4, '30대':42.5, '40대':39.1, '50대':71.9, '60대+':53.1},
+      gender:      {'남성':{d:26.4,r:72.3,ref:1.3},'여성':{d:94.0,r:4.1,ref:1.9}},
+      age:         {'20대':{d:90.2,r:0.0,ref:9.8},'30대':{d:99.4,r:0.0,ref:0.6},'40대':{d:65.0,r:34.6,ref:0.4},'50대':{d:18.3,r:81.7,ref:0.0},'60대+':{d:40.5,r:59.5,ref:0.0}},
+      income:      {'200만원미만':{d:66.9,r:32.0,ref:1.1},'200~400만원':{d:48.2,r:49.5,ref:2.3},'400~600만원':{d:27.1,r:71.3,ref:1.6},'600만원이상':{d:25.6,r:74.2,ref:0.2}},
+      edu:         {'중졸이하':{d:55.6,r:44.4,ref:0.0},'고졸':{d:46.1,r:51.3,ref:2.6},'대학교':{d:53.9,r:44.6,ref:1.5},'대학원이상':{d:45.7,r:53.3,ref:1.0}},
+      job:         {'상용근로':{d:52.4,r:45.5,ref:2.2},'임시·일용':{d:49.3,r:46.9,ref:3.8},'자영업':{d:30.7,r:68.2,ref:1.1},'비경제활동':{d:54.8,r:44.9,ref:0.3}},
+      housing:     {'자가':{d:35.1,r:64.4,ref:0.6},'전세':{d:95.0,r:0.8,ref:4.2},'월세':{d:100.0,r:0.0,ref:0.0}},
       stress:      {'높음':{d:37.0,r:42.4,ref:3.1},'보통':{d:44.9,r:33.7,ref:3.6},'낮음':{d:44.4,r:33.1,ref:4.9}},
       social_safety:{'안전':{d:44.2,r:34.6,ref:3.7},'보통':{d:41.0,r:37.9,ref:3.4},'불안':{d:43.7,r:35.1,ref:3.2}},
       achievement: {'만족':{d:47.2,r:31.2,ref:3.6},'보통':{d:40.4,r:38.7,ref:3.3},'불만족':{d:38.6,r:40.5,ref:3.3}},
@@ -818,7 +818,7 @@ function renderBasic() {
   const vals = [
     {pct:R.dem, color:'var(--dem)', party:'더불어민주당', cand:R.cand.dem, cls:'dem'},
     {pct:R.rep, color:'var(--rep)', party:'국민의힘',     cand:R.cand.rep, cls:'rep'},
-    {pct:R.ref, color:'var(--ref)', party:'소수후보',     cand:R.cand.ref, cls:'ref'},
+    {pct:R.ref, color:'var(--ref)', party:'기타',          cand:R.cand.ref, cls:'ref'},
   ];
   const top = vals.reduce((a,b) => a.pct > b.pct ? a : b);
   const second = vals.filter(v=>v!==top).reduce((a,b) => a.pct > b.pct ? a : b);
@@ -943,7 +943,7 @@ function getComboVal() {
 
 function renderCombo() {
   const {d, r, ref, e, labels, n} = getComboVal();
-  const allVals = [{v:d,clr:'var(--dem)',lbl:'민주당'},{v:r,clr:'var(--rep)',lbl:'국민의힘'},{v:ref,clr:'var(--ref)',lbl:'소수후보'}];
+  const allVals = [{v:d,clr:'var(--dem)',lbl:'민주당'},{v:r,clr:'var(--rep)',lbl:'국민의힘'},{v:ref,clr:'var(--ref)',lbl:'기타'}];
   const top = allVals.reduce((a,b)=>a.v>b.v?a:b);
   const second = allVals.filter(x=>x!==top).reduce((a,b)=>a.v>b.v?a:b);
   const lead = Math.abs(top.v-second.v).toFixed(1);
@@ -973,8 +973,8 @@ function renderCombo() {
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;justify-content:center">
-      <span style="color:var(--ref);font-weight:700">소수후보 ${ref}%</span>
-      <span style="color:var(--muted)">· 기타/무소속 ${e}%</span>
+      <span style="color:var(--ref);font-weight:700">기타 ${ref}%</span>
+      <span style="color:var(--muted)">· 무응답/기권 ${e}%</span>
     </div>
     <div class="combo-bar" style="margin-top:10px">
       <div class="combo-bar-dem" style="width:${d}%">${d>16?d+'%':''}</div>
@@ -1030,7 +1030,7 @@ function renderPresetCombos() {
           <span style="color:var(--dem)">민주 ${d}%</span>
           <span style="font-size:10px;color:${wClr};font-weight:800">+${lead}%p</span>
           <span style="color:var(--rep)">국힘 ${r}%</span>
-          <span style="color:var(--ref)">소수 ${ref}%</span>
+          <span style="color:var(--ref)">기타 ${ref}%</span>
         </div>
       </div>`;
   }).join('');
@@ -1081,7 +1081,7 @@ function renderPersona() {
         <div class="p-pcts">
           <span style="color:var(--dem)">민주 ${d}%</span>
           <span style="color:var(--rep)">국힘 ${r}%</span>
-          <span style="color:var(--ref)">소수 ${ref}%</span>
+          <span style="color:var(--ref)">기타 ${ref}%</span>
         </div>
         <div class="p-pop">${p.pop}</div>
       </div>`;
@@ -1117,7 +1117,7 @@ function renderPersonaDetail(i) {
           <div class="pd-support-title">${R.short} 모델 예측 지지율</div>
           <div class="pd-sbar-row"><div class="pd-sbar-label">더불어민주당</div><div class="pd-sbar-track"><div class="pd-sbar-fill" style="width:${adjD}%;background:var(--dem)">${adjD}%</div></div></div>
           <div class="pd-sbar-row"><div class="pd-sbar-label">국민의힘</div><div class="pd-sbar-track"><div class="pd-sbar-fill" style="width:${adjR}%;background:var(--rep)">${adjR}%</div></div></div>
-          <div class="pd-sbar-row"><div class="pd-sbar-label">소수후보</div><div class="pd-sbar-track"><div class="pd-sbar-fill" style="width:${adjRef}%;background:var(--ref)">${adjRef}%</div></div></div>
+          <div class="pd-sbar-row"><div class="pd-sbar-label">기타</div><div class="pd-sbar-track"><div class="pd-sbar-fill" style="width:${adjRef}%;background:var(--ref)">${adjRef}%</div></div></div>
           <div class="pd-sbar-row"><div class="pd-sbar-label">기타/무소속</div><div class="pd-sbar-track"><div class="pd-sbar-fill" style="width:${adjE}%;background:#94a3b8">${adjE}%</div></div></div>
         </div>
       </div>
