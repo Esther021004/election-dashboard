@@ -493,7 +493,7 @@ const REGIONS = {
     cand:{
       dem:{name:'정원오', role:'더불어민주당'},
       rep:{name:'오세훈', role:'국민의힘'},
-      ref:{name:'', role:'기타 후보'}
+      ref:{name:'기타', role:''}
     },
     bk:{
       turnout:     {전체:99.9, 남성:99.9, 여성:99.9, '20대':99.7, '30대':100.0, '40대':99.8, '50대':100.0, '60대+':100.0},
@@ -524,7 +524,7 @@ const REGIONS = {
     cand:{
       dem:{name:'정원오', role:'더불어민주당'},
       rep:{name:'오세훈', role:'국민의힘'},
-      ref:{name:'', role:'기타 후보'}
+      ref:{name:'기타', role:''}
     },
     bk:{
       turnout:     {전체:52.0, 남성:76.8, 여성:29.4, '20대':65.3, '30대':68.8, '40대':66.3, '50대':58.9, '60대+':24.5},
@@ -555,7 +555,7 @@ const REGIONS = {
     cand:{
       dem:{name:'정원오', role:'더불어민주당'},
       rep:{name:'오세훈', role:'국민의힘'},
-      ref:{name:'', role:'기타 후보'}
+      ref:{name:'기타', role:''}
     },
     bk:{
       turnout:     {전체:52.3, 남성:68.4, 여성:37.5, '20대':44.4, '30대':42.5, '40대':39.1, '50대':71.9, '60대+':53.1},
@@ -818,7 +818,7 @@ function renderBasic() {
   const vals = [
     {pct:R.dem, color:'var(--dem)', party:'더불어민주당', cand:R.cand.dem, cls:'dem'},
     {pct:R.rep, color:'var(--rep)', party:'국민의힘',     cand:R.cand.rep, cls:'rep'},
-    {pct:R.ref, color:'var(--ref)', party:'기타',          cand:R.cand.ref, cls:'ref'},
+    {pct:R.ref, color:'var(--ref)', party:'',               cand:R.cand.ref, cls:'ref'},
   ];
   const top = vals.reduce((a,b) => a.pct > b.pct ? a : b);
   const second = vals.filter(v=>v!==top).reduce((a,b) => a.pct > b.pct ? a : b);
